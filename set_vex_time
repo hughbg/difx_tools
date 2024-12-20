@@ -1,0 +1,3 @@
+echo "Probe:"
+~/networking/receiver  -k -h -b 8040  22001   /tmp/x | python set_vex_time.py
+~/networking/receiver  -k -h -b 8040  22002   /tmp/x | python set_vex_time.py

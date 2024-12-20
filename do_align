@@ -1,0 +1,8 @@
+
+dd ibs=8032 skip=7999 if=test_2cw+noise_4bit_corr_01.vdif count=464000 of=test_2cw+noise_4bit_corr_01_clean.vdif
+dd ibs=8032 skip=7999 if=test_2cw+noise_4bit_corr_02.vdif count=464000 of=/tmp/y.vdif
+
+./align test_2cw+noise_4bit_corr_01_clean.vdif /tmp/y.vdif test_2cw+noise_4bit_corr_02_clean.vdif
+
+rm /tmp/y.vdif
+

@@ -1,0 +1,36 @@
+vex = two-lba-files.vex
+
+
+SETUP default
+{
+  tInt = 2.0
+  specRes = 0.25
+}
+
+ANTENNA At
+{
+  filelist = at_stripped.filelist
+  format = LBASTD
+  clockOffset = -53.597
+  clockRate = 7.523e-8
+  clockEpoch = 54626.061458333
+  X = -4751591.695
+  Y = 2791758.810
+  Z = -3200483.747
+}
+
+ANTENNA Pa
+{
+  filelist = pa_stripped.filelist
+  format = LBASTD
+  clockOffset = -0.936
+  clockRate = 3e-9
+  clockEpoch = 54626.061458333
+}
+
+EOP 54624 { xPole=0.139890 yPole=0.533780 tai_utc=33 ut1_utc=-0.431904 }
+EOP 54625 { xPole=0.143230 yPole=0.532770 tai_utc=33 ut1_utc=-0.432531 }
+EOP 54626 { xPole=0.146590 yPole=0.531680 tai_utc=33 ut1_utc=-0.433317 }
+EOP 54627 { xPole=0.150060 yPole=0.530710 tai_utc=33 ut1_utc=-0.434260 }
+EOP 54628 { xPole=0.153750 yPole=0.529190 tai_utc=33 ut1_utc=-0.435268 }
+

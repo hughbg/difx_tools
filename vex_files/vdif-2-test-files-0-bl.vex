@@ -1,0 +1,186 @@
+VEX_rev = 1.5;
+*    SCHED vers: Release of about July 12, 2012
+*    VEX/SCHED:  1.5.87
+*    Other versions: Sched:  10.2  Plot: 1.06  JPL-ephem: 1.01
+*------------------------------------------------------------------------------
+$GLOBAL;
+     ref $EXPER = vdif_test;
+*                                                      +------------+
+*                         PI revision number:          |    1.0000  |
+*                                                      +------------+
+*    mode:        LBA, 8 GHz continuum, 128-2-2
+*------------------------------------------------------------------------------
+$EXPER;
+*
+def vdif_test;
+     exper_name = vdif_test_0_bl;
+     exper_description = "Tracking Active galactic Nuclei with Austral Mas Interferometry";
+     PI_name = RoopeshOjha;
+     PI_email = rojha@usno.navy.mil;
+*    address:   U S Naval Observatory
+*               3450 Massachusetts Ave, NW
+*               Washington DC 20392, USA
+*                
+*    phone:     +1-202-762-0607
+*    during obs: 
+*    fax:       +1-202-762-1514
+*    notes:     Fringe finder : 0144-522, 1934-638
+*
+*    year, doy: 2008, 161
+*    date     : Mon  9 Jun 2008
+*    MJD      : 54626
+     exper_nominal_start=2000y001d00h00m00s;
+     exper_nominal_stop=2000y001d01h00m00s;
+*
+     target_correlator = VDIF;
+*
+*    integr_time    :     2.000 s
+*    number_channels:    32
+*    number_antenna :  9
+*    cross_polarize : No
+*    weight_func    : UNIFORM
+*    distrib_medium : DAT
+*    distrib_format : FITS
+*    source_pos_cat : STANDARD
+*    distribute_to  : 
+*                     RoopeshOjha
+*                     U S Naval Observatory
+*                     3450 Massachusetts Ave, NW
+*                     Washington DC 20392, USA
+*
+enddef;
+*------------------------------------------------------------------------------
+$MODE;
+*
+def lba3cm-2p-2IF;
+     ref $FREQ = 8409.00MHz4x16MHz#02:Pa:At;
+     ref $IF = LO@7800MHzDPolNoTone:Pa:At;
+     ref $BBC = 4BBCs#02:Pa:At;
+     ref $TRACKS = LBA_.4Ch2bit1to1:Pa:At;
+enddef;
+*------------------------------------------------------------------------------
+$STATION;
+*
+def Pa;
+     ref $SITE = PARKES;
+     ref $ANTENNA = PARKES;
+enddef;
+*
+def At;
+     ref $SITE = ATCA;
+     ref $ANTENNA = ATCA;
+enddef;
+*------------------------------------------------------------------------------
+$SITE;
+*
+def PARKES;
+     site_type = fixed;
+     site_name = PARKES;
+     site_ID = Pa;
+*    elev=  414.68 long=-148:15:48. lat=-32:59:54.2
+     site_position =-4554232.31220 m: 2816758.88550 m:-3454035.25610 m;
+     site_velocity = -0.033210   m/yr: -0.003330   m/yr:  0.048940  m/yr;
+*    First line below is VEX standard format.  Use only when readers are ready.
+*    site_position_epoch = 2008y001d;
+enddef;
+*
+def ATCA;
+     site_type = fixed;
+     site_name = ATCA;
+     site_ID = At;
+*    elev=  414.68 long=-148:15:48. lat=-32:59:54.2
+     site_position =-4554232.31220 m: 2816758.88550 m:-3454035.25610 m;
+     site_velocity = -0.033210   m/yr: -0.003330   m/yr:  0.048940  m/yr;
+*    First line below is VEX standard format.  Use only when readers are ready.
+*    site_position_epoch = 2008y001d;
+enddef;
+*
+
+*------------------------------------------------------------------------------
+$ANTENNA;
+*
+def PARKES;
+     axis_type = az : el;
+     antenna_motion = el :  12.0 deg/min :  2 sec;  *    0.020 deg/sec/sec
+     antenna_motion = az :  24.0 deg/min :  2 sec;  *    0.040 deg/sec/sec
+     axis_offset =   -0.02500 m;
+enddef;
+*
+def ATCA;
+     axis_type = az : el;
+     antenna_motion = el :  20.0 deg/min :  3 sec;  *    0.222 deg/sec/sec
+     antenna_motion = az :  40.0 deg/min :  3 sec;  *    0.222 deg/sec/sec
+     axis_offset =    0.00000 m;
+enddef;
+*
+*------------------------------------------------------------------------------
+$SOURCE;
+*
+def 0208-512;
+     source_name = 0208-512;
+*    this source had calibrator code: V
+*    alternate source name: J0210-5101
+*    alternate source name: J0210-51
+*    GSFC 2011A astro solution      6783 Observations
+     ra = 02h10m46.2004270s; dec = -51d01'01.891780"; ref_coord_frame = J2000;
+*    ra = 02h08m56.9471755s; dec = -51d15'07.679004"; ref_coord_frame = B1950;
+*    ra = 02h11m04.0619476s; dec = -50d58'22.278275"; ref_coord_frame = Date;
+enddef;
+*
+*------------------------------------------------------------------------------
+$FREQ;
+*
+def 8409.00MHz4x16MHz#02;
+* mode =  1    stations =Pa:At
+     sample_rate =  128.000 Ms/sec;  * (4bits/sample)
+     * Chan width is set like this because FFT res is 0.421MHz
+     chan_def = :  8000.00 MHz : U :  64.000 MHz : &CH01 : &BBC01 : &NoCal; *Rcp
+enddef;
+*------------------------------------------------------------------------------
+$IF;
+*
+
+def LO@8080MHzDPolNoTone#02;
+* mode =  1    stations =Pa
+     if_def = &IF_2N : 2N : R :  8080.0 MHz : U ; * PCall off!
+enddef;
+*
+def LO@7800MHzDPolNoTone;
+* mode =  1    stations =At
+     if_def = &IF_2N : 2N : R :  7800.0 MHz : U ; * PCall off!
+enddef;
+*
+
+*------------------------------------------------------------------------------
+$BBC;
+*
+*
+def 4BBCs#02;
+* mode =  1    stations =Pa:At
+     BBC_assign = &BBC01 :  1 : &IF_2N;
+enddef;
+*------------------------------------------------------------------------------
+
+
+
+$TRACKS;
+*
+def LBA_.4Ch2bit1to1;
+     track_frame_format = VDIF/8032/4;
+     fanout_def =   : &CH01 :  mag : 1:  1;
+     fanout_def =   : &CH01 :  mag : 1:  1;
+     fanout_def =   : &CH01 :  mag : 1:  1;
+     fanout_def =   : &CH01 :  mag : 1:  1;
+ 
+enddef;
+
+*------------------------------------------------------------------------------
+$SCHED;
+* schedule section for experiment vdif_test
+* Tracking Active galactic Nuclei with Austral Mas Interferometry         
+scan No0009;
+*    start=2000y001d01h20m00s <= original start, modified for tape start.
+     start=2000y001d00h00m48s; mode=lba3cm-2p-2IF; source=0208-512;
+     station=Pa:    0 sec:  65 sec:  150.958 GB:   0 :       : 1;
+     station=At:    0 sec:  65 sec:  150.958 GB:   0 :       : 1;
+endscan;

@@ -1,0 +1,84 @@
+#!/bin/bash
+
+if [ -z $1 ]
+then
+	v2d=example
+else
+	if [ -r ${1}.v2d ]
+	then
+		v2d=$1
+	else
+		echo "$1.v2d not found"
+		exit 1
+	fi
+fi
+
+# Check paths in *.filelist
+for f in *.filelist
+do
+
+  for p in `cat $f | awk '{print $1}'`
+  do
+	#echo $p
+	if [ ! -r $p ]
+	then
+		echo "$f contains invalid path" $p
+		#exit 1
+	fi
+  done
+done
+
+# Reset config files
+rm -rf ${v2d}_1.calc  ${v2d}_1.flag  ${v2d}_1.im  ${v2d}_1.input  ${v2d}_1.machines  ${v2d}_1.threads  ${v2d}.joblist ${v2d}_1.difx
+#if [ $v2d = "example" ]
+#then cp orig_example.v2d example.v2d
+#fi
+
+source ../DiFX-2.8.1/setup.bash
+
+# Might have to do this
+if pgrep CalcServer > /dev/null 2>&1
+then
+	echo "CalcServer is running"
+else
+	echo "Starting CalcServer"
+ 	startCalcServer
+fi
+
+# Generate config files
+if ! vex2difx ${v2d}.v2d;
+then
+	echo "vex2difx failed"
+	exit 1
+fi
+if ! calcif2 ${v2d}_1.calc
+then
+	echo "calcif2 failed"
+	exit 1
+fi
+
+# Had to create cluster.def
+
+# This env variable causes problems because it makes startdifx attempt to run
+# runmpixcorr.trunk
+unset DIFX_VERSION
+
+run_startdifx() {
+
+	# startdifx will run "mpirun -np 8 --hostfile /home/jbcaadmin/Downloads/v252f/example_1.machines --mca mpi_yield_when_idle 1 --mca rmaps seq  \
+	#					mpifxcorr /home/jbcaadmin/Downloads/v252f/example_1.input"
+
+	startdifx -v -M cluster.def ${v2d}_1.input  
+}
+
+run_mpifxcorr() {
+	genmachines -v -m cluster.def ${v2d}_1.input
+	mpirun -np 8 --hostfile ${v2d}_1.machines --mca mpi_yield_when_idle 1 --mca rmaps seq mpifxcorr ${v2d}_1.input
+}
+
+# Choose one of the above functions
+
+#run_mpifxcorr
+run_startdifx
+
+

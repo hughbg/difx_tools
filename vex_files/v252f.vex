@@ -1,0 +1,2059 @@
+VEX_rev = 1.5;
+*    SCHED vers: Release of about July 12, 2012
+*    VEX/SCHED:  1.5.87
+*    Other versions: Sched:  10.2  Plot: 1.06  JPL-ephem: 1.01
+*------------------------------------------------------------------------------
+$GLOBAL;
+     ref $EXPER = v252f;
+*                                                      +------------+
+*                         PI revision number:          |    1.0000  |
+*                                                      +------------+
+*    mode:        LBA, 8 GHz continuum, 128-2-2
+*------------------------------------------------------------------------------
+$EXPER;
+*
+def v252f;
+     exper_name = v252f;
+     exper_description = "Tracking Active galactic Nuclei with Austral Mas Interferometry";
+     PI_name = RoopeshOjha;
+     PI_email = rojha@usno.navy.mil;
+*    address:   U S Naval Observatory
+*               3450 Massachusetts Ave, NW
+*               Washington DC 20392, USA
+*                
+*    phone:     +1-202-762-0607
+*    during obs: 
+*    fax:       +1-202-762-1514
+*    notes:     Fringe finder : 0144-522, 1934-638
+*
+*    year, doy: 2008, 161
+*    date     : Mon  9 Jun 2008
+*    MJD      : 54626
+     exper_nominal_start=2008y161d00h00m00s;
+     exper_nominal_stop=2008y161d23h59m40s;
+*
+     target_correlator = LBA;
+*
+*    integr_time    :     2.000 s
+*    number_channels:    32
+*    number_antenna :  9
+*    cross_polarize : No
+*    weight_func    : UNIFORM
+*    distrib_medium : DAT
+*    distrib_format : FITS
+*    source_pos_cat : STANDARD
+*    distribute_to  : 
+*                     RoopeshOjha
+*                     U S Naval Observatory
+*                     3450 Massachusetts Ave, NW
+*                     Washington DC 20392, USA
+*
+enddef;
+*------------------------------------------------------------------------------
+$MODE;
+*
+def lba3cm-2p-2IF;
+     ref $PROCEDURES = Mode_01;
+     ref $FREQ = 8409.00MHz4x16MHz#02:Pa:At:Mp:Ho:Cd;
+     ref $FREQ = 8409.00MHz4x16MHz:Hh;
+     ref $IF = LO@8080MHzDPolNoTone#02:Pa:Ho;
+     ref $IF = LO@7800MHzDPolNoTone:At:Mp;
+     ref $IF = LO@7000MHzDPolNoTone:Cd;
+     ref $IF = LO@8080MHzDPolNoTone:Hh;
+     ref $BBC = 4BBCs#02:Pa:At:Mp:Ho:Cd;
+     ref $BBC = 4BBCs:Hh;
+     ref $TRACKS = LBA_.4Ch2bit1to1:Pa:At:Mp:Ho:Cd;
+     ref $TRACKS = MKIV.4Ch2bit1to4:Hh;
+     ref $HEAD_POS = LBAVoid:Pa:At:Mp:Ho:Cd;
+*    ref $HEAD_POS = DiskVoid <= obsolete definition
+     ref $ROLL = NoRoll:Pa:At:Mp:Ho:Cd:Hh;
+     ref $PASS_ORDER = LBADummy:Pa:At:Mp:Ho:Cd;
+*    ref $PASS_ORDER = DiskVoid <= obsolete definition
+     ref $PHASE_CAL_DETECT = NoDetect#02:Pa:At:Mp:Ho:Cd;
+     ref $PHASE_CAL_DETECT = NoDetect:Hh;
+enddef;
+*------------------------------------------------------------------------------
+$STATION;
+*
+def Pa;
+     ref $SITE = PARKES;
+     ref $ANTENNA = PARKES;
+     ref $DAS = 1LBA+NONE<LBADR;
+enddef;
+*
+def At;
+     ref $SITE = ATCA;
+     ref $ANTENNA = ATCA;
+     ref $DAS = 1LBA+NONE<LBADR;
+enddef;
+*
+def Mp;
+     ref $SITE = MOPRA;
+     ref $ANTENNA = MOPRA;
+     ref $DAS = 1LBA+NONE<LBADR;
+enddef;
+*
+def Ho;
+     ref $SITE = HOBART;
+     ref $ANTENNA = HOBART;
+     ref $DAS = 1LBA+NONE<LBADR;
+enddef;
+*
+def Cd;
+     ref $SITE = CEDUNA;
+     ref $ANTENNA = CEDUNA;
+     ref $DAS = 1LBA+NONE<LBADR;
+enddef;
+*
+def Hh;
+     ref $SITE = HART;
+     ref $ANTENNA = HART;
+     ref $DAS = 2MKIV+NONE<;
+enddef;
+*------------------------------------------------------------------------------
+$PROCEDURES;
+*
+def Mode_01;
+     procedure_name_prefix =  "01";
+     tape_change =  420 sec;
+     headstack_motion =    6 sec;
+     new_source_command =    5 sec;
+     new_tape_setup =   20 sec;
+     setup_always = on :  20 sec;
+     parity_check = off : 100 sec;
+     tape_prepass = off : 600 sec;
+     preob_cal  = on :  10 sec : preob;
+     midob_cal  = on :  15 sec : midob;
+     postob_cal = on :   0 sec : postob;
+enddef;
+*------------------------------------------------------------------------------
+$SITE;
+*
+def PARKES;
+     site_type = fixed;
+     site_name = PARKES;
+     site_ID = Pa;
+*    elev=  414.68 long=-148:15:48. lat=-32:59:54.2
+     site_position =-4554232.31220 m: 2816758.88550 m:-3454035.25610 m;
+     site_velocity = -0.033210   m/yr: -0.003330   m/yr:  0.048940  m/yr;
+*    First line below is VEX standard format.  Use only when readers are ready.
+*    site_position_epoch = 2008y001d;
+     site_position_epoch =   54466;
+enddef;
+*
+def ATCA;
+     site_type = fixed;
+     site_name = ATCA;
+     site_ID = At;
+*    elev=  217.00 long=-149:34:12. lat=-30:18:36.0
+     site_position =-4752008.07205 m: 2791332.20178 m:-3200197.64436 m;
+     site_velocity =  0.000000   m/yr:  0.000000   m/yr:  0.000000  m/yr;
+*    First line below is VEX standard format.  Use only when readers are ready.
+*    site_position_epoch = 1858y322d;
+     site_position_epoch =       0;
+enddef;
+*
+def MOPRA;
+     site_type = fixed;
+     site_name = MOPRA;
+     site_ID = Mp;
+*    elev=  867.31 long=-149:05:58. lat=-31:16:04.1
+     site_position =-4682768.63000 m: 2802619.06000 m:-3291759.90000 m;
+     site_velocity =  0.000000   m/yr:  0.000000   m/yr:  0.000000  m/yr;
+*    First line below is VEX standard format.  Use only when readers are ready.
+*    site_position_epoch = 1858y322d;
+     site_position_epoch =       0;
+enddef;
+*
+def HOBART;
+     site_type = fixed;
+     site_name = HOBART;
+     site_ID = Ho;
+*    elev=   65.09 long=-147:26:25. lat=-42:48:12.9
+     site_position =-3950237.16050 m: 2522347.64680 m:-4311562.08680 m;
+     site_velocity = -0.038730   m/yr:  0.008440   m/yr:  0.040910  m/yr;
+*    First line below is VEX standard format.  Use only when readers are ready.
+*    site_position_epoch = 2008y001d;
+     site_position_epoch =   54466;
+enddef;
+*
+def CEDUNA;
+     site_type = fixed;
+     site_name = CEDUNA;
+     site_ID = Cd;
+*    elev=  164.62 long=-133:48:35. lat=-31:52:03.7
+     site_position =-3753442.74570 m: 3912709.75300 m:-3348067.60950 m;
+     site_velocity = -0.041730   m/yr:  0.002670   m/yr:  0.049900  m/yr;
+*    First line below is VEX standard format.  Use only when readers are ready.
+*    site_position_epoch = 1997y001d;
+     site_position_epoch =   50449;
+enddef;
+*
+def HART;
+     site_type = fixed;
+     site_name = HART;
+     site_ID = Hh;
+*    elev= 1415.71 long=-027:41:07. lat=-25:53:23.1
+     site_position = 5085442.77120 m: 2668263.70380 m:-2768696.82940 m;
+     site_velocity = -0.001100   m/yr:  0.019500   m/yr:  0.016210  m/yr;
+*    First line below is VEX standard format.  Use only when readers are ready.
+*    site_position_epoch = 2008y001d;
+     site_position_epoch =   54466;
+enddef;
+*------------------------------------------------------------------------------
+$ANTENNA;
+*
+def PARKES;
+     axis_type = az : el;
+     antenna_motion = el :  12.0 deg/min :  2 sec;  *    0.020 deg/sec/sec
+     antenna_motion = az :  24.0 deg/min :  2 sec;  *    0.040 deg/sec/sec
+     axis_offset =   -0.02500 m;
+enddef;
+*
+def ATCA;
+     axis_type = az : el;
+     antenna_motion = el :  20.0 deg/min :  3 sec;  *    0.222 deg/sec/sec
+     antenna_motion = az :  40.0 deg/min :  3 sec;  *    0.222 deg/sec/sec
+     axis_offset =    0.00000 m;
+enddef;
+*
+def MOPRA;
+     axis_type = az : el;
+     antenna_motion = el :  19.0 deg/min :  3 sec;  *    0.222 deg/sec/sec
+     antenna_motion = az :  38.0 deg/min :  3 sec;  *    0.222 deg/sec/sec
+     axis_offset =    0.00000 m;
+enddef;
+*
+def HOBART;
+     axis_type = x : yew;
+     antenna_motion = x :  40.0 deg/min :  2 sec;  *    0.028 deg/sec/sec
+     antenna_motion = y :  40.0 deg/min :  2 sec;  *    0.028 deg/sec/sec
+     axis_offset =    8.19400 m;
+enddef;
+*
+def CEDUNA;
+     axis_type = az : el;
+     antenna_motion = el :  40.0 deg/min :  2 sec;  *    0.028 deg/sec/sec
+     antenna_motion = az :  40.0 deg/min :  2 sec;  *    0.028 deg/sec/sec
+     axis_offset =    0.00240 m;
+enddef;
+*
+def HART;
+     axis_type = ha : dec;
+     antenna_motion = dec :  30.0 deg/min : 20 sec;  *    0.071 deg/sec/sec
+     antenna_motion = ha :  30.0 deg/min : 20 sec;  *    0.071 deg/sec/sec
+     axis_offset =    6.69200 m;
+enddef;
+*------------------------------------------------------------------------------
+$DAS;
+*
+def 1LBA+NONE<LBADR;
+     record_transport_type = S2;
+     electronics_rack_type = LBA;
+     number_drives = 1;
+     headstack = 1 :            : 0 ;
+     tape_motion = adaptive : 0 min: 0 min: 10 sec;
+enddef;
+*
+def 2MKIV+NONE<;
+     record_transport_type = Mark5A;
+     electronics_rack_type = Mark4;
+     number_drives = 2;
+     headstack = 1 :            : 0 ;
+     headstack = 2 :            : 1 ;
+     tape_motion = adaptive : 0 min: 0 min: 10 sec;
+enddef;
+*------------------------------------------------------------------------------
+$SOURCE;
+*
+def 0144-522;
+     source_name = 0144-522;
+*    this source had calibrator code: V
+*    alternate source name: J0146-5202
+*    rfc_2012b Petrov, 2012, unpublished 26 observations
+     ra = 01h46m48.5812200s; dec = -52d02'33.650500"; ref_coord_frame = J2000;
+*    ra = 01h44m53.1598624s; dec = -52d17'31.068753"; ref_coord_frame = B1950;
+*    ra = 01h47m07.6825383s; dec = -51d59'44.412086"; ref_coord_frame = Date;
+enddef;
+*
+def 0208-512;
+     source_name = 0208-512;
+*    this source had calibrator code: V
+*    alternate source name: J0210-5101
+*    alternate source name: J0210-51
+*    GSFC 2011A astro solution      6783 Observations
+     ra = 02h10m46.2004270s; dec = -51d01'01.891780"; ref_coord_frame = J2000;
+*    ra = 02h08m56.9471755s; dec = -51d15'07.679004"; ref_coord_frame = B1950;
+*    ra = 02h11m04.0619476s; dec = -50d58'22.278275"; ref_coord_frame = Date;
+enddef;
+*
+def 0438-436;
+     source_name = 0438-436;
+*    this source had calibrator code: V
+*    alternate source name: J0440-4333
+*    alternate source name: J0440-43
+*    GSFC 2011A astro solution       347 Observations
+     ra = 04h40m17.1799760s; dec = -43d33'08.604310"; ref_coord_frame = J2000;
+*    ra = 04h38m43.1791413s; dec = -43d38'53.541782"; ref_coord_frame = B1950;
+*    ra = 04h40m31.7526552s; dec = -43d32'02.349140"; ref_coord_frame = Date;
+enddef;
+*
+def 0454-463;
+     source_name = 0454-463;
+*    this source had calibrator code: N
+*    alternate source name: J0455-4615
+*    alternate source name: J0455-4616
+*    alternate source name: J0455-46
+*    rfc_2012b Petrov, 2012, unpublished 81 observations
+     ra = 04h55m50.7725170s; dec = -46d15'58.679920"; ref_coord_frame = J2000;
+*    ra = 04h54m24.1777402s; dec = -46d20'38.719680"; ref_coord_frame = B1950;
+*    ra = 04h56m03.9462327s; dec = -46d15'04.276621"; ref_coord_frame = Date;
+enddef;
+*
+def 0518-458;
+     source_name = 0518-458;
+*    this source had calibrator code: V
+*    alternate source name: J0519-4546
+*    rfc_2012b Petrov, 2012, unpublished 78 observations
+     ra = 05h19m49.7233450s; dec = -45d46'43.853040"; ref_coord_frame = J2000;
+*    ra = 05h18m23.6073981s; dec = -45d49'41.810775"; ref_coord_frame = B1950;
+*    ra = 05h20m02.7727008s; dec = -45d46'08.467191"; ref_coord_frame = Date;
+enddef;
+*
+def 0527-359;
+     source_name = 0527-359;
+*    this source had calibrator code: V
+*    alternate source name: J0529-3555
+*    rfc_2012b Petrov, 2012, unpublished 32 observations
+     ra = 05h29m37.6568150s; dec = -35d55'16.286620"; ref_coord_frame = J2000;
+*    ra = 05h27m51.9013005s; dec = -35d57'32.615572"; ref_coord_frame = B1950;
+*    ra = 05h29m54.3289742s; dec = -35d54'48.847132"; ref_coord_frame = Date;
+enddef;
+*
+def 0625-354;
+     source_name = 0625-354;
+*    this source had calibrator code: V
+*    alternate source name: J0627-3529
+*    rfc_2012b Petrov, 2012, unpublished 61 observations
+     ra = 06h27m06.7293790s; dec = -35d29'15.339210"; ref_coord_frame = J2000;
+*    ra = 06h25m20.2851654s; dec = -35d27'20.958512"; ref_coord_frame = B1950;
+*    ra = 06h27m23.5210436s; dec = -35d29'34.087547"; ref_coord_frame = Date;
+enddef;
+*
+def 1104-445;
+     source_name = 1104-445;
+*    this source had calibrator code: V
+*    alternate source name: J1107-4449
+*    alternate source name: J1107-44
+*    rfc_2012b Petrov, 2012, unpublished 2509 observations
+     ra = 11h07m08.6941330s; dec = -44d49'07.618640"; ref_coord_frame = J2000;
+*    ra = 11h04m50.3694380s; dec = -44d32'52.988176"; ref_coord_frame = B1950;
+*    ra = 11h07m32.1419664s; dec = -44d52'10.070222"; ref_coord_frame = Date;
+enddef;
+*
+def 1257-326;
+     source_name = 1257-326;
+*    this source had calibrator code: V
+*    alternate source name: J1300-3253
+*    rfc_2012b Petrov, 2012, unpublished 204 observations
+     ra = 13h00m42.4260160s; dec = -32d53'12.113820"; ref_coord_frame = J2000;
+*    ra = 12h57m57.6567597s; dec = -32d37'03.220208"; ref_coord_frame = B1950;
+*    ra = 13h01m11.3862554s; dec = -32d56'12.194917"; ref_coord_frame = Date;
+enddef;
+*
+def J1325-4301;
+     source_name = J1325-4301;
+*    this source had calibrator code: V
+*    alternate source name: CEN-A
+*    alternate source name: 1322-427
+*    alternate source name: J1325-43
+*    rfc_2012b Petrov, 2012, unpublished 80 observations
+     ra = 13h25m27.6152110s; dec = -43d01'08.804730"; ref_coord_frame = J2000;
+*    ra = 13h22m31.6065273s; dec = -42d45'33.016468"; ref_coord_frame = B1950;
+*    ra = 13h25m58.7186728s; dec = -43d04'05.300822"; ref_coord_frame = Date;
+enddef;
+*
+def 1333-337;
+     source_name = 1333-337;
+*    this source had calibrator code: V
+*    alternate source name: J1336-3357
+*    GSFC 2011A astro solution        37 Observations
+     ra = 13h36m39.0327040s; dec = -33d57'57.076640"; ref_coord_frame = J2000;
+*    ra = 13h33m47.1836636s; dec = -33d42'40.037894"; ref_coord_frame = B1950;
+*    ra = 13h37m09.4545466s; dec = -34d00'48.357651"; ref_coord_frame = Date;
+enddef;
+*
+def 1454-354;
+     source_name = 1454-354;
+*    this source had calibrator code: V
+*    alternate source name: J1457-3539
+*    rfc_2012b Petrov, 2012, unpublished 189 observations
+     ra = 14h57m26.7117150s; dec = -35d39'09.971560"; ref_coord_frame = J2000;
+*    ra = 14h54m19.7805553s; dec = -35d27'08.611862"; ref_coord_frame = B1950;
+*    ra = 14h58m00.2140371s; dec = -35d41'26.390486"; ref_coord_frame = Date;
+enddef;
+*
+def 1549-790;
+     source_name = 1549-790;
+*    this source had calibrator code: V
+*    alternate source name: J1556-7914
+*    alternate source name: J1556-79
+*    rfc_2012b Petrov, 2012, unpublished 237 observations
+     ra = 15h56m58.8699130s; dec = -79d14'04.281390"; ref_coord_frame = J2000;
+*    ra = 15h49m28.1041395s; dec = -79d05'17.525990"; ref_coord_frame = B1950;
+*    ra = 15h58m23.3571324s; dec = -79d15'45.156989"; ref_coord_frame = Date;
+enddef;
+*
+def 1714-336;
+     source_name = 1714-336;
+*    this source had calibrator code: V
+*    alternate source name: J1717-3342
+*    GSFC 2011A astro solution        14 Observations
+     ra = 17h17m36.0293360s; dec = -33d42'08.827450"; ref_coord_frame = J2000;
+*    ra = 17h14m18.5430117s; dec = -33d38'57.368312"; ref_coord_frame = B1950;
+*    ra = 17h18m11.7322318s; dec = -33d42'48.406551"; ref_coord_frame = Date;
+enddef;
+*
+def 1718-649;
+     source_name = 1718-649;
+*    this source had calibrator code: V
+*    alternate source name: J1723-6500
+*    alternate source name: J1723-65
+*    rfc_2012b Petrov, 2012, unpublished 94 observations
+     ra = 17h23m41.0293690s; dec = -65d00'36.611300"; ref_coord_frame = J2000;
+*    ra = 17h18m46.0722451s; dec = -64d57'47.771414"; ref_coord_frame = B1950;
+*    ra = 17h24m35.0994402s; dec = -65d01'10.350789"; ref_coord_frame = Date;
+enddef;
+*
+def 1759-396;
+     source_name = 1759-396;
+*    this source had calibrator code: V
+*    alternate source name: J1802-3940
+*    rfc_2012b Petrov, 2012, unpublished 1773 observations
+     ra = 18h02m42.6800620s; dec = -39d40'07.908250"; ref_coord_frame = J2000;
+*    ra = 17h59m13.4806050s; dec = -39d40'12.120208"; ref_coord_frame = B1950;
+*    ra = 18h03m20.5382838s; dec = -39d40'11.049603"; ref_coord_frame = Date;
+enddef;
+*
+def 1814-637;
+     source_name = 1814-637;
+*    this source had calibrator code: V
+*    alternate source name: J1819-6345
+*    alternate source name: J1819-63
+*    rfc_2012b Petrov, 2012, unpublished 16 observations
+     ra = 18h19m35.0026040s; dec = -63d45'48.205010"; ref_coord_frame = J2000;
+*    ra = 18h14m45.9493031s; dec = -63d47'03.207435"; ref_coord_frame = B1950;
+*    ra = 18h20m27.9077403s; dec = -63d45'35.598703"; ref_coord_frame = Date;
+enddef;
+*
+def 1934-638;
+     source_name = 1934-638;
+*    this source had calibrator code: V
+*    alternate source name: J1939-6342
+*    alternate source name: J1939-63
+*    rfc_2012b Petrov, 2012, unpublished 12 observations
+     ra = 19h39m25.0264940s; dec = -63d42'45.626590"; ref_coord_frame = J2000;
+*    ra = 19h34m47.6069064s; dec = -63d49'37.724981"; ref_coord_frame = B1950;
+*    ra = 19h40m15.6178085s; dec = -63d41'28.827797"; ref_coord_frame = Date;
+enddef;
+*
+def 1954-388;
+     source_name = 1954-388;
+*    this source had calibrator code: V
+*    alternate source name: J1957-3845
+*    alternate source name: J1957-38
+*    rfc_2012b Petrov, 2012, unpublished 17896 observations
+     ra = 19h57m59.8192760s; dec = -38d45'06.355860"; ref_coord_frame = J2000;
+*    ra = 19h54m39.0495286s; dec = -38d53'13.525038"; ref_coord_frame = B1950;
+*    ra = 19h58m35.9339499s; dec = -38d43'39.866082"; ref_coord_frame = Date;
+enddef;
+*
+def 2027-308;
+     source_name = 2027-308;
+*    this source had calibrator code: V
+*    alternate source name: J2030-3039
+*    GSFC 2011A astro solution         9 Observations
+     ra = 20h30m57.9337020s; dec = -30d39'24.349010"; ref_coord_frame = J2000;
+*    ra = 20h27m52.5610170s; dec = -30d49'32.498255"; ref_coord_frame = B1950;
+*    ra = 20h31m31.1013927s; dec = -30d37'37.227017"; ref_coord_frame = Date;
+enddef;
+*
+def 2106-413;
+     source_name = 2106-413;
+*    this source had calibrator code: V
+*    alternate source name: J2109-4110
+*    alternate source name: J2109-41
+*    rfc_2012b Petrov, 2012, unpublished 661 observations
+     ra = 21h09m33.1886010s; dec = -41d10'20.605510"; ref_coord_frame = J2000;
+*    ra = 21h06m19.3948571s; dec = -41d22'33.486973"; ref_coord_frame = B1950;
+*    ra = 21h10m07.8075207s; dec = -41d08'07.534563"; ref_coord_frame = Date;
+enddef;
+*
+def 2152-699;
+     source_name = 2152-699;
+*    this source had calibrator code: V
+*    alternate source name: J2157-6941
+*    alternate source name: J2157-69
+*    rfc_2012b Petrov, 2012, unpublished 23 observations
+     ra = 21h57m05.9805730s; dec = -69d41'23.685540"; ref_coord_frame = J2000;
+*    ra = 21h52m57.9475078s; dec = -69d55'40.743774"; ref_coord_frame = B1950;
+*    ra = 21h57m50.7758237s; dec = -69d38'40.918616"; ref_coord_frame = Date;
+enddef;
+*
+def 2204-540;
+     source_name = 2204-540;
+*    this source had calibrator code: V
+*    alternate source name: J2207-5346
+*    alternate source name: J2207-53
+*    rfc_2012b Petrov, 2012, unpublished 287 observations
+     ra = 22h07m43.7333030s; dec = -53d46'33.819770"; ref_coord_frame = J2000;
+*    ra = 22h04m26.2586144s; dec = -54d01'14.912951"; ref_coord_frame = B1950;
+*    ra = 22h08m18.9060946s; dec = -53d43'49.532148"; ref_coord_frame = Date;
+enddef;
+*
+def 2355-534;
+     source_name = 2355-534;
+*    this source had calibrator code: V
+*    alternate source name: J2357-5311
+*    alternate source name: J2357-53
+*    rfc_2012b Petrov, 2012, unpublished 225 observations
+     ra = 23h57m53.2660820s; dec = -53d11'13.689390"; ref_coord_frame = J2000;
+*    ra = 23h55m18.1597408s; dec = -53d27'55.994724"; ref_coord_frame = B1950;
+*    ra = 23h58m20.1606640s; dec = -53d08'05.718740"; ref_coord_frame = Date;
+enddef;
+*------------------------------------------------------------------------------
+$FREQ;
+*
+def 8409.00MHz4x16MHz;
+* mode =  1    stations =Hh
+     sample_rate =  32.000 Ms/sec;  * (2bits/sample)
+     chan_def = :  8409.00 MHz : U :  16.00 MHz : &CH01 : &BBC02 : &NoCal; *Rcp
+     chan_def = :  8409.00 MHz : U :  16.00 MHz : &CH02 : &BBC01 : &NoCal; *Lcp
+     chan_def = :  8425.00 MHz : U :  16.00 MHz : &CH03 : &BBC04 : &NoCal; *Rcp
+     chan_def = :  8425.00 MHz : U :  16.00 MHz : &CH04 : &BBC03 : &NoCal; *Lcp
+enddef;
+*
+def 8409.00MHz4x16MHz#02;
+* mode =  1    stations =Pa:At:Mp:Ho:Cd
+     sample_rate =  32.000 Ms/sec;  * (2bits/sample)
+     chan_def = :  8409.00 MHz : U :  16.00 MHz : &CH01 : &BBC01 : &NoCal; *Rcp
+     chan_def = :  8425.00 MHz : U :  16.00 MHz : &CH02 : &BBC01 : &NoCal; *Rcp
+     chan_def = :  8409.00 MHz : U :  16.00 MHz : &CH03 : &BBC02 : &NoCal; *Lcp
+     chan_def = :  8425.00 MHz : U :  16.00 MHz : &CH04 : &BBC02 : &NoCal; *Lcp
+enddef;
+*------------------------------------------------------------------------------
+$IF;
+*
+def LO@8080MHzDPolNoTone;
+* mode =  1    stations =Hh
+     if_def = &IF_2N : 2N : R :  8080.0 MHz : U ; * PCall off!
+     if_def = &IF_1N : 1N : L :  8080.0 MHz : U ; * PCall off!
+enddef;
+*
+def LO@8080MHzDPolNoTone#02;
+* mode =  1    stations =Pa:Ho
+     if_def = &IF_2N : 2N : R :  8080.0 MHz : U ; * PCall off!
+     if_def = &IF_1N : 1N : L :  8080.0 MHz : U ; * PCall off!
+enddef;
+*
+def LO@7800MHzDPolNoTone;
+* mode =  1    stations =At:Mp
+     if_def = &IF_2N : 2N : R :  7800.0 MHz : U ; * PCall off!
+     if_def = &IF_1N : 1N : L :  7800.0 MHz : U ; * PCall off!
+enddef;
+*
+def LO@7000MHzDPolNoTone;
+* mode =  1    stations =Cd
+     if_def = &IF_2N : 2N : R :  7000.0 MHz : U ; * PCall off!
+     if_def = &IF_1N : 1N : L :  7000.0 MHz : U ; * PCall off!
+enddef;
+*------------------------------------------------------------------------------
+$BBC;
+*
+def 4BBCs;
+* mode =  1    stations =Hh
+     BBC_assign = &BBC02 :  2 : &IF_2N;
+     BBC_assign = &BBC01 :  1 : &IF_1N;
+     BBC_assign = &BBC04 :  4 : &IF_2N;
+     BBC_assign = &BBC03 :  3 : &IF_1N;
+enddef;
+*
+def 4BBCs#02;
+* mode =  1    stations =Pa:At:Mp:Ho:Cd
+     BBC_assign = &BBC01 :  1 : &IF_2N;
+     BBC_assign = &BBC02 :  2 : &IF_1N;
+enddef;
+*------------------------------------------------------------------------------
+$PHASE_CAL_DETECT;
+*
+def NoDetect;
+* mode =  1    stations =Hh
+     phase_cal_detect = &NoCal;
+enddef;
+*
+def NoDetect#02;
+* mode =  1    stations =Pa:At:Mp:Ho:Cd
+     phase_cal_detect = &NoCal;
+enddef;
+*------------------------------------------------------------------------------
+$TRACKS;
+*
+def MKIV.4Ch2bit1to4;
+* mode =  1    stations =Hh
+*    format = MKIV1:4, and fan-out = 4
+*    mode requires  8.00Mb/s/tr; stations using disks
+     track_frame_format = Mark4;
+     data_modulation = off;
+     fanout_def =   : &CH01 : sign : 1:  2:  4:  6:  8;
+     fanout_def =   : &CH01 :  mag : 1: 10: 12: 14: 16;
+     fanout_def =   : &CH02 : sign : 1: 18: 20: 22: 24;
+     fanout_def =   : &CH02 :  mag : 1: 26: 28: 30: 32;
+     fanout_def =   : &CH03 : sign : 1:  3:  5:  7:  9;
+     fanout_def =   : &CH03 :  mag : 1: 11: 13: 15: 17;
+     fanout_def =   : &CH04 : sign : 1: 19: 21: 23: 25;
+     fanout_def =   : &CH04 :  mag : 1: 27: 29: 31: 33;
+enddef;
+*
+def LBA_.4Ch2bit1to1;
+* mode =  1    stations =Pa:At:Mp:Ho:Cd
+*    format = LBA, and fan-out = 1
+*    mode requires  32.00Mb/s/tr; stations using disks
+     S2_data_source = VLBA;
+     S2_recording_mode = none;
+     fanout_def =   : &CH01 : sign : 1:  0;
+     fanout_def =   : &CH01 :  mag : 1:  1;
+     fanout_def =   : &CH02 : sign : 1:  2;
+     fanout_def =   : &CH02 :  mag : 1:  3;
+     fanout_def =   : &CH03 : sign : 1:  4;
+     fanout_def =   : &CH03 :  mag : 1:  5;
+     fanout_def =   : &CH04 : sign : 1:  6;
+     fanout_def =   : &CH04 :  mag : 1:  7;
+enddef;
+*------------------------------------------------------------------------------
+$HEAD_POS;
+def DiskVoid;
+* mode =  1    stations =Hh
+*     Head positions irrelevant for Disk: empty def
+enddef;
+def LBAVoid;
+* mode =  1    stations =Pa:At:Mp:Ho:Cd
+*     Head positions irrelevant for Disk: empty def
+enddef;
+*------------------------------------------------------------------------------
+$PASS_ORDER;
+*
+def DiskVoid;
+* mode =  1    stations =Hh
+*     Pass orders irrelevant for Disk: empty def
+enddef;
+*
+def LBADummy;
+* mode =  1    stations =Pa:At:Mp:Ho:Cd
+* LBA masquerading as S2 needs a dummy value
+     S2_group_order = 0;
+enddef;
+*------------------------------------------------------------------------------
+$ROLL;
+*
+def NoRoll;
+* mode =  1    stations =Pa:At:Mp:Ho:Cd:Hh
+*    barrel-roll set to 'roll_off', so reverse-roll by  0 (1 head)
+     roll = off;
+enddef;
+*------------------------------------------------------------------------------
+$SCHED;
+* schedule section for experiment v252f   
+* Tracking Active galactic Nuclei with Austral Mas Interferometry         
+scan No0001;
+*    start=2008y161d00h00m00s <= original start, modified for tape start.
+     start=2008y160d23h59m55s; mode=lba3cm-2p-2IF; source=2355-534;
+*              :data_good:data_stop:goto_foot: pass:  wrap :driv:tape at
+     station=Pa:    5 sec:  465 sec:    0.000 GB:   0 :       : 1;
+     station=At:    5 sec:  465 sec:    0.000 GB:   0 :       : 1;
+     station=Mp:    5 sec:  465 sec:    0.000 GB:   0 :       : 1;
+     station=Ho:    5 sec:  465 sec:    0.000 GB:   0 :       : 1;
+     station=Cd:    5 sec:  465 sec:    0.000 GB:   0 :       : 1;
+     station=Hh:    5 sec:  465 sec:    0.000 GB:   :       : 1;
+endscan;
+scan No0002;
+*    start=2008y161d00h08m00s <= original start, modified for tape start.
+     start=2008y161d00h07m55s; mode=lba3cm-2p-2IF; source=0527-359;
+     station=Pa:  599 sec:  705 sec:   14.999 GB:   0 :       : 1;
+     station=At:  363 sec:  705 sec:   14.999 GB:   0 :       : 1;
+     station=Mp:  378 sec:  705 sec:   14.999 GB:   0 :       : 1;
+     station=Ho:   92 sec:  705 sec:   14.999 GB:   0 :       : 1;
+     station=Cd:  387 sec:  705 sec:   14.999 GB:   0 :       : 1;
+endscan;
+scan No0003;
+*    start=2008y161d00h20m00s <= original start, modified for tape start.
+     start=2008y161d00h19m55s; mode=lba3cm-2p-2IF; source=0625-354;
+     station=Pa:   54 sec:  585 sec:   37.740 GB:   0 :       : 1;
+     station=At:   24 sec:  585 sec:   37.740 GB:   0 :       : 1;
+     station=Mp:   26 sec:  585 sec:   37.740 GB:   0 :       : 1;
+     station=Ho:   26 sec:  585 sec:   37.740 GB:   0 :       : 1;
+     station=Cd:   28 sec:  585 sec:   37.740 GB:   0 :       : 1;
+endscan;
+scan No0004;
+*    start=2008y161d00h30m00s <= original start, modified for tape start.
+     start=2008y161d00h29m55s; mode=lba3cm-2p-2IF; source=2355-534;
+     station=Pa:  295 sec:  585 sec:   56.609 GB:   0 :       : 1;
+     station=At:  162 sec:  585 sec:   56.609 GB:   0 :       : 1;
+     station=Mp:  174 sec:  585 sec:   56.609 GB:   0 :       : 1;
+     station=Ho:  106 sec:  585 sec:   56.609 GB:   0 :       : 1;
+     station=Cd:  177 sec:  585 sec:   56.609 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:   14.999 GB:   :       : 1;
+endscan;
+scan No0005;
+*    start=2008y161d00h40m00s <= original start, modified for tape start.
+     start=2008y161d00h39m55s; mode=lba3cm-2p-2IF; source=0208-512;
+     station=Pa:   94 sec:  585 sec:   75.479 GB:   0 :       : 1;
+     station=At:   48 sec:  585 sec:   75.479 GB:   0 :       : 1;
+     station=Mp:   51 sec:  585 sec:   75.479 GB:   0 :       : 1;
+     station=Ho:   35 sec:  585 sec:   75.479 GB:   0 :       : 1;
+     station=Cd:   49 sec:  585 sec:   75.479 GB:   0 :       : 1;
+endscan;
+scan No0006;
+*    start=2008y161d00h50m00s <= original start, modified for tape start.
+     start=2008y161d00h49m55s; mode=lba3cm-2p-2IF; source=0527-359;
+     station=Pa:  280 sec:  585 sec:   94.349 GB:   0 :       : 1;
+     station=At:  146 sec:  585 sec:   94.349 GB:   0 :       : 1;
+     station=Mp:  160 sec:  585 sec:   94.349 GB:   0 :       : 1;
+     station=Ho:   63 sec:  585 sec:   94.349 GB:   0 :       : 1;
+     station=Cd:  149 sec:  585 sec:   94.349 GB:   0 :       : 1;
+endscan;
+scan No0007;
+*    start=2008y161d01h00m00s <= original start, modified for tape start.
+     start=2008y161d00h59m55s; mode=lba3cm-2p-2IF; source=0625-354;
+     station=Pa:   54 sec:  585 sec:  113.219 GB:   0 :       : 1;
+     station=At:   24 sec:  585 sec:  113.219 GB:   0 :       : 1;
+     station=Mp:   26 sec:  585 sec:  113.219 GB:   0 :       : 1;
+     station=Ho:   27 sec:  585 sec:  113.219 GB:   0 :       : 1;
+     station=Cd:   28 sec:  585 sec:  113.219 GB:   0 :       : 1;
+endscan;
+scan No0008;
+*    start=2008y161d01h10m00s <= original start, modified for tape start.
+     start=2008y161d01h09m55s; mode=lba3cm-2p-2IF; source=2355-534;
+     station=Pa:  299 sec:  585 sec:  132.088 GB:   0 :       : 1;
+     station=At:  163 sec:  585 sec:  132.088 GB:   0 :       : 1;
+     station=Mp:  175 sec:  585 sec:  132.088 GB:   0 :       : 1;
+     station=Ho:  101 sec:  585 sec:  132.088 GB:   0 :       : 1;
+     station=Cd:  184 sec:  585 sec:  132.088 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:   33.869 GB:   :       : 1;
+endscan;
+scan No0009;
+*    start=2008y161d01h20m00s <= original start, modified for tape start.
+     start=2008y161d01h19m55s; mode=lba3cm-2p-2IF; source=0208-512;
+     station=Pa:   97 sec:  585 sec:  150.958 GB:   0 :       : 1;
+     station=At:   50 sec:  585 sec:  150.958 GB:   0 :       : 1;
+     station=Mp:   53 sec:  585 sec:  150.958 GB:   0 :       : 1;
+     station=Ho:   37 sec:  585 sec:  150.958 GB:   0 :       : 1;
+     station=Cd:   39 sec:  585 sec:  150.958 GB:   0 :       : 1;
+     station=Hh:   78 sec:  585 sec:   52.739 GB:   :       : 1;
+endscan;
+scan No0010;
+*    start=2008y161d01h30m00s <= original start, modified for tape start.
+     start=2008y161d01h29m55s; mode=lba3cm-2p-2IF; source=0438-436;
+*              :data_good:data_stop:goto_foot: pass:  wrap :driv:tape at
+     station=Pa:  119 sec:  585 sec:  169.828 GB:   0 :       : 1;
+     station=At:   55 sec:  585 sec:  169.828 GB:   0 :       : 1;
+     station=Mp:   62 sec:  585 sec:  169.828 GB:   0 :       : 1;
+     station=Ho:   45 sec:  585 sec:  169.828 GB:   0 :       : 1;
+     station=Cd:  124 sec:  585 sec:  169.828 GB:   0 :       : 1;
+endscan;
+scan No0011;
+*    start=2008y161d01h40m00s <= original start, modified for tape start.
+     start=2008y161d01h39m55s; mode=lba3cm-2p-2IF; source=0454-463;
+     station=Pa:   27 sec:  585 sec:  188.698 GB:   0 :       : 1;
+     station=At:    7 sec:  585 sec:  188.698 GB:   0 :       : 1;
+     station=Mp:    9 sec:  585 sec:  188.698 GB:   0 :       : 1;
+     station=Ho:    7 sec:  585 sec:  188.698 GB:   0 :       : 1;
+     station=Cd:   10 sec:  585 sec:  188.698 GB:   0 :       : 1;
+endscan;
+scan No0012;
+*    start=2008y161d01h50m00s <= original start, modified for tape start.
+     start=2008y161d01h49m55s; mode=lba3cm-2p-2IF; source=0518-458;
+     station=Pa:   40 sec:  585 sec:  207.567 GB:   0 :       : 1;
+     station=At:   14 sec:  585 sec:  207.567 GB:   0 :       : 1;
+     station=Mp:   16 sec:  585 sec:  207.567 GB:   0 :       : 1;
+     station=Ho:   11 sec:  585 sec:  207.567 GB:   0 :       : 1;
+     station=Cd:   23 sec:  585 sec:  207.567 GB:   0 :       : 1;
+endscan;
+scan No0013;
+*    start=2008y161d02h00m00s <= original start, modified for tape start.
+     start=2008y161d01h59m55s; mode=lba3cm-2p-2IF; source=0208-512;
+     station=Pa:  146 sec:  585 sec:  226.437 GB:   0 :       : 1;
+     station=At:   69 sec:  585 sec:  226.437 GB:   0 :       : 1;
+     station=Mp:   77 sec:  585 sec:  226.437 GB:   0 :       : 1;
+     station=Ho:   54 sec:  585 sec:  226.437 GB:   0 :       : 1;
+     station=Cd:  131 sec:  585 sec:  226.437 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:   71.608 GB:   :       : 1;
+endscan;
+scan No0014;
+*    start=2008y161d02h10m00s <= original start, modified for tape start.
+     start=2008y161d02h09m55s; mode=lba3cm-2p-2IF; source=0144-522;
+     station=Pa:   17 sec:  585 sec:  245.307 GB:   0 :       : 1;
+     station=At:    1 sec:  585 sec:  245.307 GB:   0 :       : 1;
+     station=Mp:    2 sec:  585 sec:  245.307 GB:   0 :       : 1;
+     station=Ho:   10 sec:  585 sec:  245.307 GB:   0 :       : 1;
+     station=Cd:   11 sec:  585 sec:  245.307 GB:   0 :       : 1;
+     station=Hh:   24 sec:  585 sec:   90.478 GB:   :       : 1;
+endscan;
+scan No0015;
+*    start=2008y161d02h20m00s <= original start, modified for tape start.
+     start=2008y161d02h19m55s; mode=lba3cm-2p-2IF; source=0144-522;
+     station=Pa:    0 sec:  585 sec:  264.177 GB:   0 :       : 1;
+     station=At:    0 sec:  585 sec:  264.177 GB:   0 :       : 1;
+     station=Mp:    0 sec:  585 sec:  264.177 GB:   0 :       : 1;
+     station=Ho:    0 sec:  585 sec:  264.177 GB:   0 :       : 1;
+     station=Cd:    0 sec:  585 sec:  264.177 GB:   0 :       : 1;
+     station=Hh:    6 sec:  585 sec:  109.348 GB:   :       : 1;
+endscan;
+scan No0016;
+*    start=2008y161d02h30m00s <= original start, modified for tape start.
+     start=2008y161d02h29m55s; mode=lba3cm-2p-2IF; source=0144-522;
+     station=Pa:    0 sec:  585 sec:  283.046 GB:   0 :       : 1;
+     station=At:    0 sec:  585 sec:  283.046 GB:   0 :       : 1;
+     station=Mp:    0 sec:  585 sec:  283.046 GB:   0 :       : 1;
+     station=Ho:    0 sec:  585 sec:  283.046 GB:   0 :       : 1;
+     station=Cd:    0 sec:  585 sec:  283.046 GB:   0 :       : 1;
+     station=Hh:    6 sec:  585 sec:  128.218 GB:   :       : 1;
+endscan;
+scan No0017;
+*    start=2008y161d02h40m00s <= original start, modified for tape start.
+     start=2008y161d02h39m55s; mode=lba3cm-2p-2IF; source=0208-512;
+     station=Pa:   15 sec:  585 sec:  301.916 GB:   0 :       : 1;
+     station=At:    1 sec:  585 sec:  301.916 GB:   0 :       : 1;
+     station=Mp:    1 sec:  585 sec:  301.916 GB:   0 :       : 1;
+     station=Ho:   11 sec:  585 sec:  301.916 GB:   0 :       : 1;
+     station=Cd:   10 sec:  585 sec:  301.916 GB:   0 :       : 1;
+     station=Hh:   24 sec:  585 sec:  147.087 GB:   :       : 1;
+endscan;
+scan No0018;
+*    start=2008y161d02h50m00s <= original start, modified for tape start.
+     start=2008y161d02h49m55s; mode=lba3cm-2p-2IF; source=0438-436;
+     station=Pa:  126 sec:  585 sec:  320.786 GB:   0 :       : 1;
+     station=At:   67 sec:  585 sec:  320.786 GB:   0 :       : 1;
+     station=Mp:   71 sec:  585 sec:  320.786 GB:   0 :       : 1;
+     station=Ho:   41 sec:  585 sec:  320.786 GB:   0 :       : 1;
+     station=Cd:   57 sec:  585 sec:  320.786 GB:   0 :       : 1;
+endscan;
+scan No0019;
+*    start=2008y161d03h00m00s <= original start, modified for tape start.
+     start=2008y161d02h59m55s; mode=lba3cm-2p-2IF; source=0144-522;
+*              :data_good:data_stop:goto_foot: pass:  wrap :driv:tape at
+     station=Pa:  148 sec:  585 sec:  339.656 GB:   0 :       : 1;
+     station=At:   80 sec:  585 sec:  339.656 GB:   0 :       : 1;
+     station=Mp:   84 sec:  585 sec:  339.656 GB:   0 :       : 1;
+     station=Ho:   49 sec:  585 sec:  339.656 GB:   0 :       : 1;
+     station=Cd:   54 sec:  585 sec:  339.656 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:  165.957 GB:   :       : 1;
+endscan;
+scan No0020;
+*    start=2008y161d03h10m00s <= original start, modified for tape start.
+     start=2008y161d03h09m55s; mode=lba3cm-2p-2IF; source=1104-445;
+     station=Pa:  252 sec:  585 sec:  358.525 GB:   0 :       : 1;
+     station=At:  139 sec:  585 sec:  358.525 GB:   0 :       : 1;
+     station=Mp:  149 sec:  585 sec:  358.525 GB:   0 :       : 1;
+     station=Ho:  127 sec:  585 sec:  358.525 GB:   0 :       : 1;
+     station=Cd:  156 sec:  585 sec:  358.525 GB:   0 :       : 1;
+endscan;
+scan No0021;
+*    start=2008y161d03h20m00s <= original start, modified for tape start.
+     start=2008y161d03h19m55s; mode=lba3cm-2p-2IF; source=0144-522;
+     station=Pa:  252 sec:  585 sec:  377.395 GB:   0 :       : 1;
+     station=At:  140 sec:  585 sec:  377.395 GB:   0 :       : 1;
+     station=Mp:  149 sec:  585 sec:  377.395 GB:   0 :       : 1;
+     station=Ho:  127 sec:  585 sec:  377.395 GB:   0 :       : 1;
+     station=Cd:  157 sec:  585 sec:  377.395 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:  184.827 GB:   :       : 1;
+endscan;
+scan No0022;
+*    start=2008y161d03h30m00s <= original start, modified for tape start.
+     start=2008y161d03h29m55s; mode=lba3cm-2p-2IF; source=0454-463;
+     station=Pa:  149 sec:  585 sec:  396.265 GB:   0 :       : 1;
+     station=At:   81 sec:  585 sec:  396.265 GB:   0 :       : 1;
+     station=Mp:   86 sec:  585 sec:  396.265 GB:   0 :       : 1;
+     station=Ho:   51 sec:  585 sec:  396.265 GB:   0 :       : 1;
+     station=Cd:   55 sec:  585 sec:  396.265 GB:   0 :       : 1;
+endscan;
+scan No0023;
+*    start=2008y161d03h40m00s <= original start, modified for tape start.
+     start=2008y161d03h39m55s; mode=lba3cm-2p-2IF; source=0144-522;
+     station=Pa:  153 sec:  585 sec:  415.135 GB:   0 :       : 1;
+     station=At:   83 sec:  585 sec:  415.135 GB:   0 :       : 1;
+     station=Mp:   88 sec:  585 sec:  415.135 GB:   0 :       : 1;
+     station=Ho:   53 sec:  585 sec:  415.135 GB:   0 :       : 1;
+     station=Cd:   56 sec:  585 sec:  415.135 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:  203.697 GB:   :       : 1;
+endscan;
+scan No0024;
+*    start=2008y161d03h50m00s <= original start, modified for tape start.
+     start=2008y161d03h49m55s; mode=lba3cm-2p-2IF; source=1104-445;
+     station=Pa:  253 sec:  585 sec:  434.004 GB:   0 :       : 1;
+     station=At:  140 sec:  585 sec:  434.004 GB:   0 :       : 1;
+     station=Mp:  149 sec:  585 sec:  434.004 GB:   0 :       : 1;
+     station=Ho:  125 sec:  585 sec:  434.004 GB:   0 :       : 1;
+     station=Cd:  161 sec:  585 sec:  434.004 GB:   0 :       : 1;
+endscan;
+scan No0025;
+*    start=2008y161d04h00m00s <= original start, modified for tape start.
+     start=2008y161d03h59m55s; mode=lba3cm-2p-2IF; source=0438-436;
+     station=Pa:  287 sec:  585 sec:  452.874 GB:   0 :       : 1;
+     station=At:  157 sec:  585 sec:  452.874 GB:   0 :       : 1;
+     station=Mp:  168 sec:  585 sec:  452.874 GB:   0 :       : 1;
+     station=Ho:  106 sec:  585 sec:  452.874 GB:   0 :       : 1;
+     station=Cd:  166 sec:  585 sec:  452.874 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:  222.566 GB:   :       : 1;
+endscan;
+scan No0026;
+*    start=2008y161d04h10m00s <= original start, modified for tape start.
+     start=2008y161d04h09m55s; mode=lba3cm-2p-2IF; source=0454-463;
+     station=Pa:   12 sec:  585 sec:  471.744 GB:   0 :       : 1;
+     station=At:    0 sec:  585 sec:  471.744 GB:   0 :       : 1;
+     station=Mp:    0 sec:  585 sec:  471.744 GB:   0 :       : 1;
+     station=Ho:   10 sec:  585 sec:  471.744 GB:   0 :       : 1;
+     station=Cd:   25 sec:  585 sec:  471.744 GB:   0 :       : 1;
+     station=Hh:   20 sec:  585 sec:  241.436 GB:   :       : 1;
+endscan;
+scan No0027;
+*    start=2008y161d04h20m00s <= original start, modified for tape start.
+     start=2008y161d04h19m55s; mode=lba3cm-2p-2IF; source=0518-458;
+     station=Pa:   17 sec:  585 sec:  490.614 GB:   0 :       : 1;
+     station=At:    2 sec:  585 sec:  490.614 GB:   0 :       : 1;
+     station=Mp:    2 sec:  585 sec:  490.614 GB:   0 :       : 1;
+     station=Ho:    9 sec:  585 sec:  490.614 GB:   0 :       : 1;
+     station=Cd:   16 sec:  585 sec:  490.614 GB:   0 :       : 1;
+     station=Hh:  195 sec:  585 sec:  260.306 GB:   :       : 1;
+endscan;
+scan No0028;
+*    start=2008y161d04h30m00s <= original start, modified for tape start.
+     start=2008y161d04h29m55s; mode=lba3cm-2p-2IF; source=0438-436;
+*              :data_good:data_stop:goto_foot: pass:  wrap :driv:tape at
+     station=Pa:   31 sec:  585 sec:  509.483 GB:   0 :       : 1;
+     station=At:    9 sec:  585 sec:  509.483 GB:   0 :       : 1;
+     station=Mp:   10 sec:  585 sec:  509.483 GB:   0 :       : 1;
+     station=Ho:   19 sec:  585 sec:  509.483 GB:   0 :       : 1;
+     station=Cd:   31 sec:  585 sec:  509.483 GB:   0 :       : 1;
+     station=Hh:   32 sec:  585 sec:  279.176 GB:   :       : 1;
+endscan;
+scan No0029;
+*    start=2008y161d04h40m00s <= original start, modified for tape start.
+     start=2008y161d04h39m55s; mode=lba3cm-2p-2IF; source=0527-359;
+     station=Pa:   43 sec:  585 sec:  528.353 GB:   0 :       : 1;
+     station=At:   19 sec:  585 sec:  528.353 GB:   0 :       : 1;
+     station=Mp:   20 sec:  585 sec:  528.353 GB:   0 :       : 1;
+     station=Ho:   30 sec:  585 sec:  528.353 GB:   0 :       : 1;
+     station=Cd:   33 sec:  585 sec:  528.353 GB:   0 :       : 1;
+     station=Hh:   36 sec:  585 sec:  298.045 GB:   :       : 1;
+endscan;
+scan No0030;
+*    start=2008y161d04h50m00s <= original start, modified for tape start.
+     start=2008y161d04h49m55s; mode=lba3cm-2p-2IF; source=0625-354;
+     station=Pa:   54 sec:  585 sec:  547.223 GB:   0 :       : 1;
+     station=At:   24 sec:  585 sec:  547.223 GB:   0 :       : 1;
+     station=Mp:   26 sec:  585 sec:  547.223 GB:   0 :       : 1;
+     station=Ho:   27 sec:  585 sec:  547.223 GB:   0 :       : 1;
+     station=Cd:   31 sec:  585 sec:  547.223 GB:   0 :       : 1;
+endscan;
+scan No0031;
+*    start=2008y161d05h00m00s <= original start, modified for tape start.
+     start=2008y161d04h59m55s; mode=lba3cm-2p-2IF; source=0454-463;
+     station=Pa:   88 sec:  585 sec:  566.093 GB:   0 :       : 1;
+     station=At:   45 sec:  585 sec:  566.093 GB:   0 :       : 1;
+     station=Mp:   48 sec:  585 sec:  566.093 GB:   0 :       : 1;
+     station=Ho:   39 sec:  585 sec:  566.093 GB:   0 :       : 1;
+     station=Cd:   41 sec:  585 sec:  566.093 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:  316.915 GB:   :       : 1;
+endscan;
+scan No0032;
+*    start=2008y161d05h10m00s <= original start, modified for tape start.
+     start=2008y161d05h09m55s; mode=lba3cm-2p-2IF; source=1257-326;
+     station=Pa:  308 sec:  585 sec:  584.962 GB:   0 :       : 1;
+     station=At:  172 sec:  585 sec:  584.962 GB:   0 :       : 1;
+     station=Mp:  184 sec:  585 sec:  584.962 GB:   0 :       : 1;
+     station=Ho:  137 sec:  585 sec:  584.962 GB:   0 :       : 1;
+     station=Cd:  183 sec:  585 sec:  584.962 GB:   0 :       : 1;
+endscan;
+scan No0033;
+*    start=2008y161d05h20m00s <= original start, modified for tape start.
+     start=2008y161d05h19m55s; mode=lba3cm-2p-2IF; source=0438-436;
+     station=Pa:  319 sec:  585 sec:  603.832 GB:   0 :       : 1;
+     station=At:  179 sec:  585 sec:  603.832 GB:   0 :       : 1;
+     station=Mp:  190 sec:  585 sec:  603.832 GB:   0 :       : 1;
+     station=Ho:  144 sec:  585 sec:  603.832 GB:   0 :       : 1;
+     station=Cd:  194 sec:  585 sec:  603.832 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:  335.785 GB:   :       : 1;
+endscan;
+scan No0034;
+*    start=2008y161d05h30m00s <= original start, modified for tape start.
+     start=2008y161d05h29m55s; mode=lba3cm-2p-2IF; source=0527-359;
+     station=Pa:   38 sec:  585 sec:  622.702 GB:   0 :       : 1;
+     station=At:   15 sec:  585 sec:  622.702 GB:   0 :       : 1;
+     station=Mp:   16 sec:  585 sec:  622.702 GB:   0 :       : 1;
+     station=Ho:   33 sec:  585 sec:  622.702 GB:   0 :       : 1;
+     station=Cd:   32 sec:  585 sec:  622.702 GB:   0 :       : 1;
+     station=Hh:   36 sec:  585 sec:  354.655 GB:   :       : 1;
+endscan;
+scan No0035;
+*    start=2008y161d05h40m00s <= original start, modified for tape start.
+     start=2008y161d05h39m55s; mode=lba3cm-2p-2IF; source=0625-354;
+     station=Pa:   53 sec:  585 sec:  641.572 GB:   0 :       : 1;
+     station=At:   24 sec:  585 sec:  641.572 GB:   0 :       : 1;
+     station=Mp:   26 sec:  585 sec:  641.572 GB:   0 :       : 1;
+     station=Ho:   25 sec:  585 sec:  641.572 GB:   0 :       : 1;
+     station=Cd:   28 sec:  585 sec:  641.572 GB:   0 :       : 1;
+     station=Hh:   40 sec:  585 sec:  373.524 GB:   :       : 1;
+endscan;
+scan No0036;
+*    start=2008y161d05h50m00s <= original start, modified for tape start.
+     start=2008y161d05h49m55s; mode=lba3cm-2p-2IF; source=0454-463;
+*              :data_good:data_stop:goto_foot: pass:  wrap :driv:tape at
+     station=Pa:   80 sec:  585 sec:  660.441 GB:   0 :       : 1;
+     station=At:   41 sec:  585 sec:  660.441 GB:   0 :       : 1;
+     station=Mp:   43 sec:  585 sec:  660.441 GB:   0 :       : 1;
+     station=Ho:   45 sec:  585 sec:  660.441 GB:   0 :       : 1;
+     station=Cd:   39 sec:  585 sec:  660.441 GB:   0 :       : 1;
+     station=Hh:   58 sec:  585 sec:  392.394 GB:   :       : 1;
+endscan;
+scan No0037;
+*    start=2008y161d06h00m00s <= original start, modified for tape start.
+     start=2008y161d05h59m55s; mode=lba3cm-2p-2IF; source=0518-458;
+     station=Pa:   17 sec:  585 sec:  679.311 GB:   0 :       : 1;
+     station=At:    2 sec:  585 sec:  679.311 GB:   0 :       : 1;
+     station=Mp:    2 sec:  585 sec:  679.311 GB:   0 :       : 1;
+     station=Ho:   12 sec:  585 sec:  679.311 GB:   0 :       : 1;
+     station=Cd:   11 sec:  585 sec:  679.311 GB:   0 :       : 1;
+     station=Hh:   24 sec:  585 sec:  411.264 GB:   :       : 1;
+endscan;
+scan No0038;
+*    start=2008y161d06h10m00s <= original start, modified for tape start.
+     start=2008y161d06h09m55s; mode=lba3cm-2p-2IF; source=1104-445;
+     station=Pa:  268 sec:  585 sec:  698.181 GB:   0 :       : 1;
+     station=At:  143 sec:  585 sec:  698.181 GB:   0 :       : 1;
+     station=Mp:  155 sec:  585 sec:  698.181 GB:   0 :       : 1;
+     station=Ho:   95 sec:  585 sec:  698.181 GB:   0 :       : 1;
+     station=Cd:  177 sec:  585 sec:  698.181 GB:   0 :       : 1;
+endscan;
+scan No0039;
+*    start=2008y161d06h20m00s <= original start, modified for tape start.
+     start=2008y161d06h19m55s; mode=lba3cm-2p-2IF; source=0527-359;
+     station=Pa:  298 sec:  585 sec:  717.051 GB:   0 :       : 1;
+     station=At:  160 sec:  585 sec:  717.051 GB:   0 :       : 1;
+     station=Mp:  173 sec:  585 sec:  717.051 GB:   0 :       : 1;
+     station=Ho:  104 sec:  585 sec:  717.051 GB:   0 :       : 1;
+     station=Cd:  201 sec:  585 sec:  717.051 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:  430.134 GB:   :       : 1;
+endscan;
+scan No0040;
+*    start=2008y161d06h30m00s <= original start, modified for tape start.
+     start=2008y161d06h29m55s; mode=lba3cm-2p-2IF; source=0625-354;
+     station=Pa:   52 sec:  585 sec:  735.920 GB:   0 :       : 1;
+     station=At:   23 sec:  585 sec:  735.920 GB:   0 :       : 1;
+     station=Mp:   25 sec:  585 sec:  735.920 GB:   0 :       : 1;
+     station=Ho:   25 sec:  585 sec:  735.920 GB:   0 :       : 1;
+     station=Cd:   28 sec:  585 sec:  735.920 GB:   0 :       : 1;
+     station=Hh:   40 sec:  585 sec:  449.003 GB:   :       : 1;
+endscan;
+scan No0041;
+*    start=2008y161d06h40m00s <= original start, modified for tape start.
+     start=2008y161d06h39m55s; mode=lba3cm-2p-2IF; source=0518-458;
+     station=Pa:   52 sec:  585 sec:  754.790 GB:   0 :       : 1;
+     station=At:   24 sec:  585 sec:  754.790 GB:   0 :       : 1;
+     station=Mp:   25 sec:  585 sec:  754.790 GB:   0 :       : 1;
+     station=Ho:   42 sec:  585 sec:  754.790 GB:   0 :       : 1;
+     station=Cd:   38 sec:  585 sec:  754.790 GB:   0 :       : 1;
+     station=Hh:   46 sec:  585 sec:  467.873 GB:   :       : 1;
+endscan;
+scan No0042;
+*    start=2008y161d06h50m00s <= original start, modified for tape start.
+     start=2008y161d06h49m55s; mode=lba3cm-2p-2IF; source=0527-359;
+     station=Pa:   28 sec:  585 sec:  773.660 GB:   0 :       : 1;
+     station=At:    9 sec:  585 sec:  773.660 GB:   0 :       : 1;
+     station=Mp:   10 sec:  585 sec:  773.660 GB:   0 :       : 1;
+     station=Ho:   24 sec:  585 sec:  773.660 GB:   0 :       : 1;
+     station=Cd:   33 sec:  585 sec:  773.660 GB:   0 :       : 1;
+     station=Hh:   32 sec:  585 sec:  486.743 GB:   :       : 1;
+endscan;
+scan No0043;
+*    start=2008y161d07h00m00s <= original start, modified for tape start.
+     start=2008y161d06h59m55s; mode=lba3cm-2p-2IF; source=0518-458;
+     station=Pa:   28 sec:  585 sec:  792.530 GB:   0 :       : 1;
+     station=At:    9 sec:  585 sec:  792.530 GB:   0 :       : 1;
+     station=Mp:   10 sec:  585 sec:  792.530 GB:   0 :       : 1;
+     station=Ho:   24 sec:  585 sec:  792.530 GB:   0 :       : 1;
+     station=Cd:   32 sec:  585 sec:  792.530 GB:   0 :       : 1;
+     station=Hh:   32 sec:  585 sec:  505.613 GB:   :       : 1;
+endscan;
+scan No0044;
+*    start=2008y161d07h10m00s <= original start, modified for tape start.
+     start=2008y161d07h09m55s; mode=lba3cm-2p-2IF; source=0625-354;
+*              :data_good:data_stop:goto_foot: pass:  wrap :driv:tape at
+     station=Pa:   46 sec:  585 sec:  811.399 GB:   0 :       : 1;
+     station=At:   20 sec:  585 sec:  811.399 GB:   0 :       : 1;
+     station=Mp:   21 sec:  585 sec:  811.399 GB:   0 :       : 1;
+     station=Ho:   44 sec:  585 sec:  811.399 GB:   0 :       : 1;
+     station=Cd:   37 sec:  585 sec:  811.399 GB:   0 :       : 1;
+     station=Hh:   45 sec:  585 sec:  524.482 GB:   :       : 1;
+endscan;
+scan No0045;
+*    start=2008y161d07h20m00s <= original start, modified for tape start.
+     start=2008y161d07h19m55s; mode=lba3cm-2p-2IF; source=J1325-4301;
+     station=Pa:  322 sec:  585 sec:  830.269 GB:   0 :       : 1;
+     station=At:  178 sec:  585 sec:  830.269 GB:   0 :       : 1;
+     station=Mp:  190 sec:  585 sec:  830.269 GB:   0 :       : 1;
+     station=Ho:  124 sec:  585 sec:  830.269 GB:   0 :       : 1;
+     station=Cd:  207 sec:  585 sec:  830.269 GB:   0 :       : 1;
+endscan;
+scan No0046;
+*    start=2008y161d07h30m00s <= original start, modified for tape start.
+     start=2008y161d07h29m55s; mode=lba3cm-2p-2IF; source=1333-337;
+     station=Pa:   35 sec:  585 sec:  849.139 GB:   0 :       : 1;
+     station=At:   14 sec:  585 sec:  849.139 GB:   0 :       : 1;
+     station=Mp:   15 sec:  585 sec:  849.139 GB:   0 :       : 1;
+     station=Ho:   21 sec:  585 sec:  849.139 GB:   0 :       : 1;
+     station=Cd:   28 sec:  585 sec:  849.139 GB:   0 :       : 1;
+endscan;
+scan No0047;
+*    start=2008y161d07h40m00s <= original start, modified for tape start.
+     start=2008y161d07h39m55s; mode=lba3cm-2p-2IF; source=1549-790;
+     station=Pa:  155 sec:  585 sec:  868.009 GB:   0 :       : 1;
+     station=At:   82 sec:  585 sec:  868.009 GB:   0 :       : 1;
+     station=Mp:   88 sec:  585 sec:  868.009 GB:   0 :       : 1;
+     station=Ho:   78 sec:  585 sec:  868.009 GB:   0 :       : 1;
+     station=Cd:   99 sec:  585 sec:  868.009 GB:   0 :       : 1;
+endscan;
+scan No0048;
+*    start=2008y161d07h50m00s <= original start, modified for tape start.
+     start=2008y161d07h49m55s; mode=lba3cm-2p-2IF; source=1454-354;
+     station=Pa:  138 sec:  585 sec:  886.878 GB:   0 :       : 1;
+     station=At:   73 sec:  585 sec:  886.878 GB:   0 :       : 1;
+     station=Mp:   78 sec:  585 sec:  886.878 GB:   0 :       : 1;
+     station=Ho:   63 sec:  585 sec:  886.878 GB:   0 :       : 1;
+     station=Cd:   88 sec:  585 sec:  886.878 GB:   0 :       : 1;
+endscan;
+scan No0049;
+*    start=2008y161d08h00m00s <= original start, modified for tape start.
+     start=2008y161d07h59m55s; mode=lba3cm-2p-2IF; source=J1325-4301;
+     station=Pa:   89 sec:  585 sec:  905.748 GB:   0 :       : 1;
+     station=At:   43 sec:  585 sec:  905.748 GB:   0 :       : 1;
+     station=Mp:   46 sec:  585 sec:  905.748 GB:   0 :       : 1;
+     station=Ho:   39 sec:  585 sec:  905.748 GB:   0 :       : 1;
+     station=Cd:   39 sec:  585 sec:  905.748 GB:   0 :       : 1;
+endscan;
+scan No0050;
+*    start=2008y161d08h10m00s <= original start, modified for tape start.
+     start=2008y161d08h09m55s; mode=lba3cm-2p-2IF; source=1333-337;
+     station=Pa:   45 sec:  585 sec:  924.618 GB:   0 :       : 1;
+     station=At:   20 sec:  585 sec:  924.618 GB:   0 :       : 1;
+     station=Mp:   21 sec:  585 sec:  924.618 GB:   0 :       : 1;
+     station=Ho:   22 sec:  585 sec:  924.618 GB:   0 :       : 1;
+     station=Cd:   31 sec:  585 sec:  924.618 GB:   0 :       : 1;
+endscan;
+scan No0051;
+*    start=2008y161d08h20m00s <= original start, modified for tape start.
+     start=2008y161d08h19m55s; mode=lba3cm-2p-2IF; source=1257-326;
+     station=Pa:   34 sec:  585 sec:  943.488 GB:   0 :       : 1;
+     station=At:   12 sec:  585 sec:  943.488 GB:   0 :       : 1;
+     station=Mp:   13 sec:  585 sec:  943.488 GB:   0 :       : 1;
+     station=Ho:   19 sec:  585 sec:  943.488 GB:   0 :       : 1;
+     station=Cd:   19 sec:  585 sec:  943.488 GB:   0 :       : 1;
+endscan;
+scan No0052;
+*    start=2008y161d08h30m00s <= original start, modified for tape start.
+     start=2008y161d08h29m55s; mode=lba3cm-2p-2IF; source=1718-649;
+     station=Pa:  202 sec:  585 sec:  962.357 GB:   0 :       : 1;
+     station=At:  120 sec:  585 sec:  962.357 GB:   0 :       : 1;
+     station=Mp:  124 sec:  585 sec:  962.357 GB:   0 :       : 1;
+     station=Ho:   92 sec:  585 sec:  962.357 GB:   0 :       : 1;
+     station=Cd:   88 sec:  585 sec:  962.357 GB:   0 :       : 1;
+endscan;
+scan No0053;
+*    start=2008y161d08h40m00s <= original start, modified for tape start.
+     start=2008y161d08h39m55s; mode=lba3cm-2p-2IF; source=1718-649;
+*              :data_good:data_stop:goto_foot: pass:  wrap :driv:tape at
+     station=Pa:    0 sec:  585 sec:  981.227 GB:   0 :       : 1;
+     station=At:    0 sec:  585 sec:  981.227 GB:   0 :       : 1;
+     station=Mp:    0 sec:  585 sec:  981.227 GB:   0 :       : 1;
+     station=Ho:    0 sec:  585 sec:  981.227 GB:   0 :       : 1;
+     station=Cd:    0 sec:  585 sec:  981.227 GB:   0 :       : 1;
+endscan;
+scan No0054;
+*    start=2008y161d08h50m00s <= original start, modified for tape start.
+     start=2008y161d08h49m55s; mode=lba3cm-2p-2IF; source=1454-354;
+     station=Pa:  105 sec:  585 sec: 1000.097 GB:   0 :       : 1;
+     station=At:   55 sec:  585 sec: 1000.097 GB:   0 :       : 1;
+     station=Mp:   57 sec:  585 sec: 1000.097 GB:   0 :       : 1;
+     station=Ho:   72 sec:  585 sec: 1000.097 GB:   0 :       : 1;
+     station=Cd:   72 sec:  585 sec: 1000.097 GB:   0 :       : 1;
+endscan;
+scan No0055;
+*    start=2008y161d09h00m00s <= original start, modified for tape start.
+     start=2008y161d08h59m55s; mode=lba3cm-2p-2IF; source=J1325-4301;
+     station=Pa:   82 sec:  585 sec: 1018.967 GB:   0 :       : 1;
+     station=At:   37 sec:  585 sec: 1018.967 GB:   0 :       : 1;
+     station=Mp:   40 sec:  585 sec: 1018.967 GB:   0 :       : 1;
+     station=Ho:   40 sec:  585 sec: 1018.967 GB:   0 :       : 1;
+     station=Cd:   38 sec:  585 sec: 1018.967 GB:   0 :       : 1;
+endscan;
+scan No0056;
+*    start=2008y161d09h10m00s <= original start, modified for tape start.
+     start=2008y161d09h09m55s; mode=lba3cm-2p-2IF; source=1549-790;
+     station=Pa:  168 sec:  705 sec: 1037.837 GB:   0 :       : 1;
+     station=At:   96 sec:  705 sec: 1037.837 GB:   0 :       : 1;
+     station=Mp:  100 sec:  705 sec: 1037.837 GB:   0 :       : 1;
+     station=Ho:   70 sec:  705 sec: 1037.837 GB:   0 :       : 1;
+     station=Cd:   78 sec:  705 sec: 1037.837 GB:   0 :       : 1;
+endscan;
+scan No0057;
+*    start=2008y161d09h22m00s <= original start, modified for tape start.
+     start=2008y161d09h21m55s; mode=lba3cm-2p-2IF; source=1714-336;
+     station=Pa:  138 sec:  465 sec: 1060.577 GB:   0 :       : 1;
+     station=At:   75 sec:  465 sec: 1060.577 GB:   0 :       : 1;
+     station=Mp:   80 sec:  465 sec: 1060.577 GB:   0 :       : 1;
+     station=Ho:   77 sec:  465 sec: 1060.577 GB:   0 :       : 1;
+     station=Cd:   85 sec:  465 sec: 1060.577 GB:   0 :       : 1;
+endscan;
+scan No0058;
+*    start=2008y161d09h30m00s <= original start, modified for tape start.
+     start=2008y161d09h29m55s; mode=lba3cm-2p-2IF; source=1814-637;
+     station=Pa:   90 sec:  585 sec: 1075.576 GB:   0 :       : 1;
+     station=At:   46 sec:  585 sec: 1075.576 GB:   0 :       : 1;
+     station=Mp:   49 sec:  585 sec: 1075.576 GB:   0 :       : 1;
+     station=Ho:   50 sec:  585 sec: 1075.576 GB:   0 :       : 1;
+     station=Cd:   62 sec:  585 sec: 1075.576 GB:   0 :       : 1;
+endscan;
+scan No0059;
+*    start=2008y161d09h40m00s <= original start, modified for tape start.
+     start=2008y161d09h39m55s; mode=lba3cm-2p-2IF; source=1714-336;
+     station=Pa:   92 sec:  585 sec: 1094.446 GB:   0 :       : 1;
+     station=At:   47 sec:  585 sec: 1094.446 GB:   0 :       : 1;
+     station=Mp:   50 sec:  585 sec: 1094.446 GB:   0 :       : 1;
+     station=Ho:   50 sec:  585 sec: 1094.446 GB:   0 :       : 1;
+     station=Cd:   63 sec:  585 sec: 1094.446 GB:   0 :       : 1;
+endscan;
+scan No0060;
+*    start=2008y161d09h50m00s <= original start, modified for tape start.
+     start=2008y161d09h49m55s; mode=lba3cm-2p-2IF; source=1759-396;
+     station=At:   11 sec:  585 sec: 1113.316 GB:   0 :       : 1;
+     station=Mp:   11 sec:  585 sec: 1113.316 GB:   0 :       : 1;
+     station=Ho:   35 sec:  585 sec: 1113.316 GB:   0 :       : 1;
+     station=Cd:   25 sec:  585 sec: 1113.316 GB:   0 :       : 1;
+endscan;
+scan No0061;
+*    start=2008y161d10h00m00s <= original start, modified for tape start.
+     start=2008y161d09h59m55s; mode=lba3cm-2p-2IF; source=1759-396;
+     station=Pa:    0 sec:  585 sec: 1113.316 GB:   0 :       : 1;
+     station=At:    0 sec:  585 sec: 1132.185 GB:   0 :       : 1;
+     station=Mp:    0 sec:  585 sec: 1132.185 GB:   0 :       : 1;
+     station=Ho:    0 sec:  585 sec: 1132.185 GB:   0 :       : 1;
+     station=Cd:    0 sec:  585 sec: 1132.185 GB:   0 :       : 1;
+endscan;
+scan No0062;
+*    start=2008y161d10h10m00s <= original start, modified for tape start.
+     start=2008y161d10h09m55s; mode=lba3cm-2p-2IF; source=1814-637;
+*              :data_good:data_stop:goto_foot: pass:  wrap :driv:tape at
+     station=Pa:   70 sec:  585 sec: 1132.185 GB:   0 :       : 1;
+     station=At:   35 sec:  585 sec: 1151.055 GB:   0 :       : 1;
+     station=Mp:   37 sec:  585 sec: 1151.055 GB:   0 :       : 1;
+     station=Ho:   44 sec:  585 sec: 1151.055 GB:   0 :       : 1;
+     station=Cd:   50 sec:  585 sec: 1151.055 GB:   0 :       : 1;
+endscan;
+scan No0063;
+*    start=2008y161d10h20m00s <= original start, modified for tape start.
+     start=2008y161d10h19m55s; mode=lba3cm-2p-2IF; source=1257-326;
+     station=Pa:  298 sec:  585 sec: 1151.055 GB:   0 :       : 1;
+     station=At:  137 sec:  585 sec: 1169.925 GB:   0 :       : 1;
+     station=Mp:  156 sec:  585 sec: 1169.925 GB:   0 :       : 1;
+     station=Ho:   85 sec:  585 sec: 1169.925 GB:   0 :       : 1;
+     station=Cd:   92 sec:  585 sec: 1169.925 GB:   0 :       : 1;
+endscan;
+scan No0064;
+*    start=2008y161d10h30m00s <= original start, modified for tape start.
+     start=2008y161d10h29m55s; mode=lba3cm-2p-2IF; source=1104-445;
+     station=Pa:  117 sec:  585 sec: 1169.925 GB:   0 :       : 1;
+     station=At:   63 sec:  585 sec: 1188.795 GB:   0 :       : 1;
+     station=Mp:   67 sec:  585 sec: 1188.795 GB:   0 :       : 1;
+     station=Ho:   39 sec:  585 sec: 1188.795 GB:   0 :       : 1;
+     station=Cd:  197 sec:  585 sec: 1188.795 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:  543.352 GB:   :       : 1;
+endscan;
+scan No0065;
+*    start=2008y161d10h40m00s <= original start, modified for tape start.
+     start=2008y161d10h39m55s; mode=lba3cm-2p-2IF; source=1759-396;
+     station=Pa:  297 sec:  585 sec: 1188.795 GB:   0 :       : 1;
+     station=At:  164 sec:  585 sec: 1207.664 GB:   0 :       : 1;
+     station=Mp:  175 sec:  585 sec: 1207.664 GB:   0 :       : 1;
+     station=Ho:  117 sec:  585 sec: 1207.664 GB:   0 :       : 1;
+     station=Cd:  173 sec:  585 sec: 1207.664 GB:   0 :       : 1;
+endscan;
+scan No0066;
+*    start=2008y161d10h50m00s <= original start, modified for tape start.
+     start=2008y161d10h49m55s; mode=lba3cm-2p-2IF; source=1934-638;
+     station=Pa:   78 sec:  585 sec: 1207.664 GB:   0 :       : 1;
+     station=At:   38 sec:  585 sec: 1226.534 GB:   0 :       : 1;
+     station=Mp:   41 sec:  585 sec: 1226.534 GB:   0 :       : 1;
+     station=Ho:   52 sec:  585 sec: 1226.534 GB:   0 :       : 1;
+     station=Cd:   57 sec:  585 sec: 1226.534 GB:   0 :       : 1;
+endscan;
+scan No0067;
+*    start=2008y161d11h00m00s <= original start, modified for tape start.
+     start=2008y161d10h59m55s; mode=lba3cm-2p-2IF; source=1104-445;
+     station=Pa:  219 sec:  585 sec: 1226.534 GB:   0 :       : 1;
+     station=At:  119 sec:  585 sec: 1245.404 GB:   0 :       : 1;
+     station=Mp:  127 sec:  585 sec: 1245.404 GB:   0 :       : 1;
+     station=Ho:   95 sec:  585 sec: 1245.404 GB:   0 :       : 1;
+     station=Cd:  133 sec:  585 sec: 1245.404 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:  562.222 GB:   :       : 1;
+endscan;
+scan No0068;
+*    start=2008y161d11h10m00s <= original start, modified for tape start.
+     start=2008y161d11h09m55s; mode=lba3cm-2p-2IF; source=1934-638;
+     station=Pa:  220 sec:  585 sec: 1245.404 GB:   0 :       : 1;
+     station=At:  120 sec:  585 sec: 1264.274 GB:   0 :       : 1;
+     station=Mp:  128 sec:  585 sec: 1264.274 GB:   0 :       : 1;
+     station=Ho:   96 sec:  585 sec: 1264.274 GB:   0 :       : 1;
+     station=Cd:  135 sec:  585 sec: 1264.274 GB:   0 :       : 1;
+endscan;
+scan No0069;
+*    start=2008y161d11h20m00s <= original start, modified for tape start.
+     start=2008y161d11h19m55s; mode=lba3cm-2p-2IF; source=1934-638;
+     station=Pa:    0 sec:  585 sec: 1264.274 GB:   0 :       : 1;
+     station=At:    0 sec:  585 sec: 1283.143 GB:   0 :       : 1;
+     station=Mp:    0 sec:  585 sec: 1283.143 GB:   0 :       : 1;
+     station=Ho:    0 sec:  585 sec: 1283.143 GB:   0 :       : 1;
+     station=Cd:    0 sec:  585 sec: 1283.143 GB:   0 :       : 1;
+endscan;
+scan No0070;
+*    start=2008y161d11h30m00s <= original start, modified for tape start.
+     start=2008y161d11h29m55s; mode=lba3cm-2p-2IF; source=1333-337;
+     station=Pa:  280 sec:  585 sec: 1283.143 GB:   0 :       : 1;
+     station=At:  144 sec:  585 sec: 1302.013 GB:   0 :       : 1;
+     station=Mp:  157 sec:  585 sec: 1302.013 GB:   0 :       : 1;
+     station=Ho:   84 sec:  585 sec: 1302.013 GB:   0 :       : 1;
+     station=Cd:  101 sec:  585 sec: 1302.013 GB:   0 :       : 1;
+endscan;
+scan No0071;
+*    start=2008y161d11h40m00s <= original start, modified for tape start.
+     start=2008y161d11h39m55s; mode=lba3cm-2p-2IF; source=1104-445;
+*              :data_good:data_stop:goto_foot: pass:  wrap :driv:tape at
+     station=Pa:  144 sec:  585 sec: 1302.013 GB:   0 :       : 1;
+     station=At:   79 sec:  585 sec: 1320.883 GB:   0 :       : 1;
+     station=Mp:   83 sec:  585 sec: 1320.883 GB:   0 :       : 1;
+     station=Ho:   47 sec:  585 sec: 1320.883 GB:   0 :       : 1;
+     station=Cd:   57 sec:  585 sec: 1320.883 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:  581.092 GB:   :       : 1;
+endscan;
+scan No0072;
+*    start=2008y161d11h50m00s <= original start, modified for tape start.
+     start=2008y161d11h49m55s; mode=lba3cm-2p-2IF; source=1454-354;
+     station=Pa:  208 sec:  585 sec: 1320.883 GB:   0 :       : 1;
+     station=At:  115 sec:  585 sec: 1339.753 GB:   0 :       : 1;
+     station=Mp:  122 sec:  585 sec: 1339.753 GB:   0 :       : 1;
+     station=Ho:   66 sec:  585 sec: 1339.753 GB:   0 :       : 1;
+     station=Cd:  197 sec:  585 sec: 1339.753 GB:   0 :       : 1;
+endscan;
+scan No0073;
+*    start=2008y161d12h00m00s <= original start, modified for tape start.
+     start=2008y161d11h59m55s; mode=lba3cm-2p-2IF; source=1954-388;
+     station=Pa:  267 sec:  585 sec: 1339.753 GB:   0 :       : 1;
+     station=At:  145 sec:  585 sec: 1358.622 GB:   0 :       : 1;
+     station=Mp:  156 sec:  585 sec: 1358.622 GB:   0 :       : 1;
+     station=Ho:   85 sec:  585 sec: 1358.622 GB:   0 :       : 1;
+     station=Cd:   97 sec:  585 sec: 1358.622 GB:   0 :       : 1;
+endscan;
+scan No0074;
+*    start=2008y161d12h10m00s <= original start, modified for tape start.
+     start=2008y161d12h09m55s; mode=lba3cm-2p-2IF; source=1257-326;
+     station=Pa:  354 sec:  585 sec: 1358.622 GB:   0 :       : 1;
+     station=At:  196 sec:  585 sec: 1377.492 GB:   0 :       : 1;
+     station=Mp:  210 sec:  585 sec: 1377.492 GB:   0 :       : 1;
+     station=Ho:  124 sec:  585 sec: 1377.492 GB:   0 :       : 1;
+     station=Cd:  219 sec:  585 sec: 1377.492 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:  599.961 GB:   :       : 1;
+endscan;
+scan No0075;
+*    start=2008y161d12h20m00s <= original start, modified for tape start.
+     start=2008y161d12h19m55s; mode=lba3cm-2p-2IF; source=2027-308;
+     station=At:  207 sec:  585 sec: 1396.362 GB:   0 :       : 1;
+     station=Mp:  221 sec:  585 sec: 1396.362 GB:   0 :       : 1;
+     station=Ho:  140 sec:  585 sec: 1396.362 GB:   0 :       : 1;
+     station=Cd:  227 sec:  585 sec: 1396.362 GB:   0 :       : 1;
+endscan;
+scan No0076;
+*    start=2008y161d12h30m00s <= original start, modified for tape start.
+     start=2008y161d12h29m55s; mode=lba3cm-2p-2IF; source=1257-326;
+     station=Pa:    0 sec:  585 sec: 1377.492 GB:   0 :       : 1;
+     station=At:  207 sec:  585 sec: 1415.232 GB:   0 :       : 1;
+     station=Mp:  221 sec:  585 sec: 1415.232 GB:   0 :       : 1;
+     station=Ho:  142 sec:  585 sec: 1415.232 GB:   0 :       : 1;
+     station=Cd:  227 sec:  585 sec: 1415.232 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:  618.831 GB:   :       : 1;
+endscan;
+scan No0077;
+*    start=2008y161d12h40m00s <= original start, modified for tape start.
+     start=2008y161d12h39m55s; mode=lba3cm-2p-2IF; source=J1325-4301;
+     station=Pa:   45 sec:  585 sec: 1396.362 GB:   0 :       : 1;
+     station=At:   19 sec:  585 sec: 1434.101 GB:   0 :       : 1;
+     station=Mp:   20 sec:  585 sec: 1434.101 GB:   0 :       : 1;
+     station=Ho:   22 sec:  585 sec: 1434.101 GB:   0 :       : 1;
+     station=Cd:   56 sec:  585 sec: 1434.101 GB:   0 :       : 1;
+     station=Hh:   32 sec:  585 sec:  637.701 GB:   :       : 1;
+endscan;
+scan No0078;
+*    start=2008y161d12h50m00s <= original start, modified for tape start.
+     start=2008y161d12h49m55s; mode=lba3cm-2p-2IF; source=2106-413;
+     station=At:  161 sec:  585 sec: 1452.971 GB:   0 :       : 1;
+     station=Mp:  172 sec:  585 sec: 1452.971 GB:   0 :       : 1;
+     station=Ho:  121 sec:  585 sec: 1452.971 GB:   0 :       : 1;
+     station=Cd:  168 sec:  585 sec: 1452.971 GB:   0 :       : 1;
+endscan;
+scan No0079;
+*    start=2008y161d13h00m00s <= original start, modified for tape start.
+     start=2008y161d12h59m55s; mode=lba3cm-2p-2IF; source=2027-308;
+     station=Pa:    0 sec:  585 sec: 1415.232 GB:   0 :       : 1;
+     station=At:   13 sec:  585 sec: 1471.841 GB:   0 :       : 1;
+     station=Mp:   14 sec:  585 sec: 1471.841 GB:   0 :       : 1;
+     station=Ho:   39 sec:  585 sec: 1471.841 GB:   0 :       : 1;
+     station=Cd:   32 sec:  585 sec: 1471.841 GB:   0 :       : 1;
+endscan;
+scan No0080;
+*    start=2008y161d13h10m00s <= original start, modified for tape start.
+     start=2008y161d13h09m55s; mode=lba3cm-2p-2IF; source=1257-326;
+*              :data_good:data_stop:goto_foot: pass:  wrap :driv:tape at
+     station=Pa:  371 sec:  585 sec: 1434.101 GB:   0 :       : 1;
+     station=At:  209 sec:  585 sec: 1490.711 GB:   0 :       : 1;
+     station=Mp:  223 sec:  585 sec: 1490.711 GB:   0 :       : 1;
+     station=Ho:  146 sec:  585 sec: 1490.711 GB:   0 :       : 1;
+     station=Cd:  230 sec:  585 sec: 1490.711 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:  656.571 GB:   :       : 1;
+endscan;
+scan No0081;
+*    start=2008y161d13h20m00s <= original start, modified for tape start.
+     start=2008y161d13h19m55s; mode=lba3cm-2p-2IF; source=1333-337;
+     station=Pa:   34 sec:  585 sec: 1452.971 GB:   0 :       : 1;
+     station=At:   12 sec:  585 sec: 1509.580 GB:   0 :       : 1;
+     station=Mp:   13 sec:  585 sec: 1509.580 GB:   0 :       : 1;
+     station=Ho:   19 sec:  585 sec: 1509.580 GB:   0 :       : 1;
+     station=Cd:   20 sec:  585 sec: 1509.580 GB:   0 :       : 1;
+     station=Hh:   30 sec:  585 sec:  675.440 GB:   :       : 1;
+endscan;
+scan No0082;
+*    start=2008y161d13h30m00s <= original start, modified for tape start.
+     start=2008y161d13h29m55s; mode=lba3cm-2p-2IF; source=J1325-4301;
+     station=Pa:   35 sec:  585 sec: 1471.841 GB:   0 :       : 1;
+     station=At:   13 sec:  585 sec: 1528.450 GB:   0 :       : 1;
+     station=Mp:   14 sec:  585 sec: 1528.450 GB:   0 :       : 1;
+     station=Ho:   26 sec:  585 sec: 1528.450 GB:   0 :       : 1;
+     station=Cd:   40 sec:  585 sec: 1528.450 GB:   0 :       : 1;
+     station=Hh:   30 sec:  585 sec:  694.310 GB:   :       : 1;
+endscan;
+scan No0083;
+*    start=2008y161d13h40m00s <= original start, modified for tape start.
+     start=2008y161d13h39m55s; mode=lba3cm-2p-2IF; source=1333-337;
+     station=Pa:   33 sec:  585 sec: 1490.711 GB:   0 :       : 1;
+     station=At:   12 sec:  585 sec: 1547.320 GB:   0 :       : 1;
+     station=Mp:   13 sec:  585 sec: 1547.320 GB:   0 :       : 1;
+     station=Ho:   26 sec:  585 sec: 1547.320 GB:   0 :       : 1;
+     station=Cd:   39 sec:  585 sec: 1547.320 GB:   0 :       : 1;
+     station=Hh:   30 sec:  585 sec:  713.180 GB:   :       : 1;
+endscan;
+scan No0084;
+*    start=2008y161d13h50m00s <= original start, modified for tape start.
+     start=2008y161d13h49m55s; mode=lba3cm-2p-2IF; source=J1325-4301;
+     station=Pa:   32 sec:  585 sec: 1509.580 GB:   0 :       : 1;
+     station=At:   11 sec:  585 sec: 1566.190 GB:   0 :       : 1;
+     station=Mp:   12 sec:  585 sec: 1566.190 GB:   0 :       : 1;
+     station=Ho:   26 sec:  585 sec: 1566.190 GB:   0 :       : 1;
+     station=Cd:   38 sec:  585 sec: 1566.190 GB:   0 :       : 1;
+     station=Hh:   30 sec:  585 sec:  732.050 GB:   :       : 1;
+endscan;
+scan No0085;
+*    start=2008y161d14h00m00s <= original start, modified for tape start.
+     start=2008y161d13h59m55s; mode=lba3cm-2p-2IF; source=1333-337;
+     station=Pa:   31 sec:  585 sec: 1528.450 GB:   0 :       : 1;
+     station=At:   10 sec:  585 sec: 1585.059 GB:   0 :       : 1;
+     station=Mp:   12 sec:  585 sec: 1585.059 GB:   0 :       : 1;
+     station=Ho:   26 sec:  585 sec: 1585.059 GB:   0 :       : 1;
+     station=Cd:   36 sec:  585 sec: 1585.059 GB:   0 :       : 1;
+     station=Hh:   30 sec:  585 sec:  750.919 GB:   :       : 1;
+endscan;
+scan No0086;
+*    start=2008y161d14h10m00s <= original start, modified for tape start.
+     start=2008y161d14h09m55s; mode=lba3cm-2p-2IF; source=1454-354;
+     station=Pa:   78 sec:  585 sec: 1547.320 GB:   0 :       : 1;
+     station=At:   39 sec:  585 sec: 1603.929 GB:   0 :       : 1;
+     station=Mp:   41 sec:  585 sec: 1603.929 GB:   0 :       : 1;
+     station=Ho:   34 sec:  585 sec: 1603.929 GB:   0 :       : 1;
+     station=Cd:   36 sec:  585 sec: 1603.929 GB:   0 :       : 1;
+     station=Hh:   52 sec:  585 sec:  769.789 GB:   :       : 1;
+endscan;
+scan No0087;
+*    start=2008y161d14h20m00s <= original start, modified for tape start.
+     start=2008y161d14h19m55s; mode=lba3cm-2p-2IF; source=1954-388;
+     station=Pa:  354 sec:  585 sec: 1566.190 GB:   0 :       : 1;
+     station=At:  192 sec:  585 sec: 1622.799 GB:   0 :       : 1;
+     station=Mp:  208 sec:  585 sec: 1622.799 GB:   0 :       : 1;
+     station=Ho:   98 sec:  585 sec: 1622.799 GB:   0 :       : 1;
+     station=Cd:  218 sec:  585 sec: 1622.799 GB:   0 :       : 1;
+endscan;
+scan No0088;
+*    start=2008y161d14h30m00s <= original start, modified for tape start.
+     start=2008y161d14h29m55s; mode=lba3cm-2p-2IF; source=2204-540;
+*              :data_good:data_stop:goto_foot: pass:  wrap :driv:tape at
+     station=Pa:  106 sec:  585 sec: 1585.059 GB:   0 :       : 1;
+     station=At:   59 sec:  585 sec: 1641.669 GB:   0 :       : 1;
+     station=Mp:   61 sec:  585 sec: 1641.669 GB:   0 :       : 1;
+     station=Ho:   56 sec:  585 sec: 1641.669 GB:   0 :       : 1;
+     station=Cd:   46 sec:  585 sec: 1641.669 GB:   0 :       : 1;
+endscan;
+scan No0089;
+*    start=2008y161d14h40m00s <= original start, modified for tape start.
+     start=2008y161d14h39m55s; mode=lba3cm-2p-2IF; source=1549-790;
+     station=Pa:  126 sec:  585 sec: 1603.929 GB:   0 :       : 1;
+     station=At:   66 sec:  585 sec: 1660.538 GB:   0 :       : 1;
+     station=Mp:   70 sec:  585 sec: 1660.538 GB:   0 :       : 1;
+     station=Ho:   67 sec:  585 sec: 1660.538 GB:   0 :       : 1;
+     station=Cd:   80 sec:  585 sec: 1660.538 GB:   0 :       : 1;
+endscan;
+scan No0090;
+*    start=2008y161d14h50m00s <= original start, modified for tape start.
+     start=2008y161d14h49m55s; mode=lba3cm-2p-2IF; source=2106-413;
+     station=Pa:  174 sec:  585 sec: 1622.799 GB:   0 :       : 1;
+     station=At:   93 sec:  585 sec: 1679.408 GB:   0 :       : 1;
+     station=Mp:  100 sec:  585 sec: 1679.408 GB:   0 :       : 1;
+     station=Ho:   71 sec:  585 sec: 1679.408 GB:   0 :       : 1;
+     station=Cd:  108 sec:  585 sec: 1679.408 GB:   0 :       : 1;
+endscan;
+scan No0091;
+*    start=2008y161d15h00m00s <= original start, modified for tape start.
+     start=2008y161d14h59m55s; mode=lba3cm-2p-2IF; source=1454-354;
+     station=Pa:  337 sec:  585 sec: 1641.669 GB:   0 :       : 1;
+     station=At:  186 sec:  585 sec: 1698.278 GB:   0 :       : 1;
+     station=Mp:  199 sec:  585 sec: 1698.278 GB:   0 :       : 1;
+     station=Ho:  115 sec:  585 sec: 1698.278 GB:   0 :       : 1;
+     station=Cd:  212 sec:  585 sec: 1698.278 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:  788.659 GB:   :       : 1;
+endscan;
+scan No0092;
+*    start=2008y161d15h10m00s <= original start, modified for tape start.
+     start=2008y161d15h09m55s; mode=lba3cm-2p-2IF; source=2152-699;
+     station=Pa:  233 sec:  585 sec: 1660.538 GB:   0 :       : 1;
+     station=At:  127 sec:  585 sec: 1717.148 GB:   0 :       : 1;
+     station=Mp:  136 sec:  585 sec: 1717.148 GB:   0 :       : 1;
+     station=Ho:   92 sec:  585 sec: 1717.148 GB:   0 :       : 1;
+     station=Cd:  156 sec:  585 sec: 1717.148 GB:   0 :       : 1;
+endscan;
+scan No0093;
+*    start=2008y161d15h20m00s <= original start, modified for tape start.
+     start=2008y161d15h19m55s; mode=lba3cm-2p-2IF; source=1549-790;
+     station=Pa:   75 sec:  585 sec: 1679.408 GB:   0 :       : 1;
+     station=At:   36 sec:  585 sec: 1736.017 GB:   0 :       : 1;
+     station=Mp:   39 sec:  585 sec: 1736.017 GB:   0 :       : 1;
+     station=Ho:   45 sec:  585 sec: 1736.017 GB:   0 :       : 1;
+     station=Cd:   55 sec:  585 sec: 1736.017 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:  807.529 GB:   :       : 1;
+endscan;
+scan No0094;
+*    start=2008y161d15h30m00s <= original start, modified for tape start.
+     start=2008y161d15h29m55s; mode=lba3cm-2p-2IF; source=1714-336;
+     station=Pa:  179 sec:  585 sec: 1698.278 GB:   0 :       : 1;
+     station=At:   90 sec:  585 sec: 1754.887 GB:   0 :       : 1;
+     station=Mp:   98 sec:  585 sec: 1754.887 GB:   0 :       : 1;
+     station=Ho:   81 sec:  585 sec: 1754.887 GB:   0 :       : 1;
+     station=Cd:  102 sec:  585 sec: 1754.887 GB:   0 :       : 1;
+endscan;
+scan No0095;
+*    start=2008y161d15h40m00s <= original start, modified for tape start.
+     start=2008y161d15h39m55s; mode=lba3cm-2p-2IF; source=1549-790;
+     station=Pa:  177 sec:  585 sec: 1717.148 GB:   0 :       : 1;
+     station=At:   88 sec:  585 sec: 1773.757 GB:   0 :       : 1;
+     station=Mp:   97 sec:  585 sec: 1773.757 GB:   0 :       : 1;
+     station=Ho:   80 sec:  585 sec: 1773.757 GB:   0 :       : 1;
+     station=Cd:  109 sec:  585 sec: 1773.757 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:  826.398 GB:   :       : 1;
+endscan;
+scan No0096;
+*    start=2008y161d15h50m00s <= original start, modified for tape start.
+     start=2008y161d15h49m55s; mode=lba3cm-2p-2IF; source=1454-354;
+     station=Pa:  145 sec:  585 sec: 1736.017 GB:   0 :       : 1;
+     station=At:   77 sec:  585 sec: 1792.627 GB:   0 :       : 1;
+     station=Mp:   82 sec:  585 sec: 1792.627 GB:   0 :       : 1;
+     station=Ho:   66 sec:  585 sec: 1792.627 GB:   0 :       : 1;
+     station=Cd:  107 sec:  585 sec: 1792.627 GB:   0 :       : 1;
+     station=Hh:   99 sec:  585 sec:  845.268 GB:   :       : 1;
+endscan;
+scan No0097;
+*    start=2008y161d16h00m00s <= original start, modified for tape start.
+     start=2008y161d15h59m55s; mode=lba3cm-2p-2IF; source=1549-790;
+*              :data_good:data_stop:goto_foot: pass:  wrap :driv:tape at
+     station=Pa:  143 sec:  585 sec: 1754.887 GB:   0 :       : 1;
+     station=At:   75 sec:  585 sec: 1811.496 GB:   0 :       : 1;
+     station=Mp:   81 sec:  585 sec: 1811.496 GB:   0 :       : 1;
+     station=Ho:   67 sec:  585 sec: 1811.496 GB:   0 :       : 1;
+     station=Cd:  106 sec:  585 sec: 1811.496 GB:   0 :       : 1;
+     station=Hh:   99 sec:  585 sec:  864.138 GB:   :       : 1;
+endscan;
+scan No0098;
+*    start=2008y161d16h10m00s <= original start, modified for tape start.
+     start=2008y161d16h09m55s; mode=lba3cm-2p-2IF; source=1814-637;
+     station=Pa:   89 sec:  585 sec: 1773.757 GB:   0 :       : 1;
+     station=At:   45 sec:  585 sec: 1830.366 GB:   0 :       : 1;
+     station=Mp:   48 sec:  585 sec: 1830.366 GB:   0 :       : 1;
+     station=Ho:   39 sec:  585 sec: 1830.366 GB:   0 :       : 1;
+     station=Cd:   38 sec:  585 sec: 1830.366 GB:   0 :       : 1;
+endscan;
+scan No0099;
+*    start=2008y161d16h20m00s <= original start, modified for tape start.
+     start=2008y161d16h19m55s; mode=lba3cm-2p-2IF; source=0208-512;
+     station=At:  101 sec:  585 sec: 1849.236 GB:   0 :       : 1;
+     station=Mp:  108 sec:  585 sec: 1849.236 GB:   0 :       : 1;
+     station=Ho:   78 sec:  585 sec: 1849.236 GB:   0 :       : 1;
+     station=Cd:   82 sec:  585 sec: 1849.236 GB:   0 :       : 1;
+endscan;
+scan No0100;
+*    start=2008y161d16h30m00s <= original start, modified for tape start.
+     start=2008y161d16h29m55s; mode=lba3cm-2p-2IF; source=1714-336;
+     station=Pa:    0 sec:  585 sec: 1792.627 GB:   0 :       : 1;
+     station=At:  164 sec:  585 sec: 1868.106 GB:   0 :       : 1;
+     station=Mp:  176 sec:  585 sec: 1868.106 GB:   0 :       : 1;
+     station=Ho:  110 sec:  585 sec: 1868.106 GB:   0 :       : 1;
+     station=Cd:  183 sec:  585 sec: 1868.106 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:  883.008 GB:   :       : 1;
+endscan;
+scan No0101;
+*    start=2008y161d16h40m00s <= original start, modified for tape start.
+     start=2008y161d16h39m55s; mode=lba3cm-2p-2IF; source=2355-534;
+     station=Pa:  307 sec:  585 sec: 1811.496 GB:   0 :       : 1;
+     station=At:  168 sec:  585 sec: 1886.975 GB:   0 :       : 1;
+     station=Mp:  180 sec:  585 sec: 1886.975 GB:   0 :       : 1;
+     station=Ho:  104 sec:  585 sec: 1886.975 GB:   0 :       : 1;
+     station=Cd:  194 sec:  585 sec: 1886.975 GB:   0 :       : 1;
+endscan;
+scan No0102;
+*    start=2008y161d16h50m00s <= original start, modified for tape start.
+     start=2008y161d16h49m55s; mode=lba3cm-2p-2IF; source=1714-336;
+     station=Pa:  304 sec:  585 sec: 1830.366 GB:   0 :       : 1;
+     station=At:  167 sec:  585 sec: 1905.845 GB:   0 :       : 1;
+     station=Mp:  179 sec:  585 sec: 1905.845 GB:   0 :       : 1;
+     station=Ho:  106 sec:  585 sec: 1905.845 GB:   0 :       : 1;
+     station=Cd:  194 sec:  585 sec: 1905.845 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:  901.878 GB:   :       : 1;
+endscan;
+scan No0103;
+*    start=2008y161d17h00m00s <= original start, modified for tape start.
+     start=2008y161d16h59m55s; mode=lba3cm-2p-2IF; source=2152-699;
+     station=Pa:  225 sec:  585 sec: 1849.236 GB:   0 :       : 1;
+     station=At:  120 sec:  585 sec: 1924.715 GB:   0 :       : 1;
+     station=Mp:  130 sec:  585 sec: 1924.715 GB:   0 :       : 1;
+     station=Ho:   75 sec:  585 sec: 1924.715 GB:   0 :       : 1;
+     station=Cd:  157 sec:  585 sec: 1924.715 GB:   0 :       : 1;
+endscan;
+scan No0104;
+*    start=2008y161d17h10m00s <= original start, modified for tape start.
+     start=2008y161d17h09m55s; mode=lba3cm-2p-2IF; source=1714-336;
+     station=Pa:  221 sec:  585 sec: 1868.106 GB:   0 :       : 1;
+     station=At:  118 sec:  585 sec: 1943.585 GB:   0 :       : 1;
+     station=Mp:  127 sec:  585 sec: 1943.585 GB:   0 :       : 1;
+     station=Ho:   77 sec:  585 sec: 1943.585 GB:   0 :       : 1;
+     station=Cd:  155 sec:  585 sec: 1943.585 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:  920.747 GB:   :       : 1;
+endscan;
+scan No0105;
+*    start=2008y161d17h20m00s <= original start, modified for tape start.
+     start=2008y161d17h19m55s; mode=lba3cm-2p-2IF; source=1759-396;
+     station=Pa:   44 sec:  585 sec: 1886.975 GB:   0 :       : 1;
+     station=At:   17 sec:  585 sec: 1962.454 GB:   0 :       : 1;
+     station=Mp:   19 sec:  585 sec: 1962.454 GB:   0 :       : 1;
+     station=Ho:   26 sec:  585 sec: 1962.454 GB:   0 :       : 1;
+     station=Cd:   37 sec:  585 sec: 1962.454 GB:   0 :       : 1;
+     station=Hh:   34 sec:  585 sec:  939.617 GB:   :       : 1;
+endscan;
+scan No0106;
+*    start=2008y161d17h30m00s <= original start, modified for tape start.
+     start=2008y161d17h29m55s; mode=lba3cm-2p-2IF; source=1814-637;
+*              :data_good:data_stop:goto_foot: pass:  wrap :driv:tape at
+     station=Pa:  103 sec:  585 sec: 1905.845 GB:   0 :       : 1;
+     station=At:   50 sec:  585 sec: 1981.324 GB:   0 :       : 1;
+     station=Mp:   55 sec:  585 sec: 1981.324 GB:   0 :       : 1;
+     station=Ho:   43 sec:  585 sec: 1981.324 GB:   0 :       : 1;
+     station=Cd:   80 sec:  585 sec: 1981.324 GB:   0 :       : 1;
+     station=Hh:   60 sec:  585 sec:  958.487 GB:   :       : 1;
+endscan;
+scan No0107;
+*    start=2008y161d17h40m00s <= original start, modified for tape start.
+     start=2008y161d17h39m55s; mode=lba3cm-2p-2IF; source=1718-649;
+     station=Pa:   27 sec:  585 sec: 1924.715 GB:   0 :       : 1;
+     station=At:    7 sec:  585 sec: 2000.194 GB:   0 :       : 1;
+     station=Mp:    8 sec:  585 sec: 2000.194 GB:   0 :       : 1;
+     station=Ho:   14 sec:  585 sec: 2000.194 GB:   0 :       : 1;
+     station=Cd:   16 sec:  585 sec: 2000.194 GB:   0 :       : 1;
+     station=Hh:   40 sec:  585 sec:  977.357 GB:   :       : 1;
+endscan;
+scan No0108;
+*    start=2008y161d17h50m00s <= original start, modified for tape start.
+     start=2008y161d17h49m55s; mode=lba3cm-2p-2IF; source=2204-540;
+     station=Pa:  132 sec:  585 sec: 1943.585 GB:   0 :       : 1;
+     station=At:   65 sec:  585 sec: 2019.064 GB:   0 :       : 1;
+     station=Mp:   72 sec:  585 sec: 2019.064 GB:   0 :       : 1;
+     station=Ho:   56 sec:  585 sec: 2019.064 GB:   0 :       : 1;
+     station=Cd:  102 sec:  585 sec: 2019.064 GB:   0 :       : 1;
+endscan;
+scan No0109;
+*    start=2008y161d18h00m00s <= original start, modified for tape start.
+     start=2008y161d17h59m55s; mode=lba3cm-2p-2IF; source=1759-396;
+     station=Pa:  221 sec:  585 sec: 1962.454 GB:   0 :       : 1;
+     station=At:  115 sec:  585 sec: 2037.933 GB:   0 :       : 1;
+     station=Mp:  125 sec:  585 sec: 2037.933 GB:   0 :       : 1;
+     station=Ho:   75 sec:  585 sec: 2037.933 GB:   0 :       : 1;
+     station=Cd:  160 sec:  585 sec: 2037.933 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec:  996.226 GB:   :       : 1;
+endscan;
+scan No0110;
+*    start=2008y161d18h10m00s <= original start, modified for tape start.
+     start=2008y161d18h09m55s; mode=lba3cm-2p-2IF; source=1718-649;
+     station=Pa:   88 sec:  585 sec: 1981.324 GB:   0 :       : 1;
+     station=At:   43 sec:  585 sec: 2056.803 GB:   0 :       : 1;
+     station=Mp:   47 sec:  585 sec: 2056.803 GB:   0 :       : 1;
+     station=Ho:   49 sec:  585 sec: 2056.803 GB:   0 :       : 1;
+     station=Cd:   69 sec:  585 sec: 2056.803 GB:   0 :       : 1;
+     station=Hh:   63 sec:  585 sec: 1015.096 GB:   :       : 1;
+endscan;
+scan No0111;
+*    start=2008y161d18h20m00s <= original start, modified for tape start.
+     start=2008y161d18h19m55s; mode=lba3cm-2p-2IF; source=1814-637;
+     station=Pa:   27 sec:  585 sec: 2000.194 GB:   0 :       : 1;
+     station=At:    8 sec:  585 sec: 2075.673 GB:   0 :       : 1;
+     station=Mp:    9 sec:  585 sec: 2075.673 GB:   0 :       : 1;
+     station=Ho:   16 sec:  585 sec: 2075.673 GB:   0 :       : 1;
+     station=Cd:   15 sec:  585 sec: 2075.673 GB:   0 :       : 1;
+     station=Hh:   40 sec:  585 sec: 1033.966 GB:   :       : 1;
+endscan;
+scan No0112;
+*    start=2008y161d18h30m00s <= original start, modified for tape start.
+     start=2008y161d18h29m55s; mode=lba3cm-2p-2IF; source=0208-512;
+     station=Pa:  191 sec:  585 sec: 2019.064 GB:   0 :       : 1;
+     station=At:  104 sec:  585 sec: 2094.543 GB:   0 :       : 1;
+     station=Mp:  111 sec:  585 sec: 2094.543 GB:   0 :       : 1;
+     station=Ho:   94 sec:  585 sec: 2094.543 GB:   0 :       : 1;
+     station=Cd:  115 sec:  585 sec: 2094.543 GB:   0 :       : 1;
+endscan;
+scan No0113;
+*    start=2008y161d18h40m00s <= original start, modified for tape start.
+     start=2008y161d18h39m55s; mode=lba3cm-2p-2IF; source=2355-534;
+     station=Pa:   96 sec:  585 sec: 2037.933 GB:   0 :       : 1;
+     station=At:   47 sec:  585 sec: 2113.413 GB:   0 :       : 1;
+     station=Mp:   51 sec:  585 sec: 2113.413 GB:   0 :       : 1;
+     station=Ho:   35 sec:  585 sec: 2113.413 GB:   0 :       : 1;
+     station=Cd:   42 sec:  585 sec: 2113.413 GB:   0 :       : 1;
+endscan;
+scan No0114;
+*    start=2008y161d18h50m00s <= original start, modified for tape start.
+     start=2008y161d18h49m55s; mode=lba3cm-2p-2IF; source=1718-649;
+     station=Pa:  167 sec:  585 sec: 2056.803 GB:   0 :       : 1;
+     station=At:   86 sec:  585 sec: 2132.283 GB:   0 :       : 1;
+     station=Mp:   94 sec:  585 sec: 2132.283 GB:   0 :       : 1;
+     station=Ho:   73 sec:  585 sec: 2132.283 GB:   0 :       : 1;
+     station=Cd:  118 sec:  585 sec: 2132.283 GB:   0 :       : 1;
+     station=Hh:    0 sec:  585 sec: 1052.836 GB:   :       : 1;
+endscan;
+scan No0115;
+*    start=2008y161d19h00m00s <= original start, modified for tape start.
+     start=2008y161d18h59m55s; mode=lba3cm-2p-2IF; source=1954-388;
+*              :data_good:data_stop:goto_foot: pass:  wrap :driv:tape at
+     station=Pa:  124 sec:  585 sec: 2075.673 GB:   0 :       : 1;
+     station=At:   69 sec:  585 sec: 2151.153 GB:   0 :       : 1;
+     station=Mp:   72 sec:  585 sec: 2151.153 GB:   0 :       : 1;
+     station=Ho:   67 sec:  585 sec: 2151.153 GB:   0 :       : 1;
+     station=Cd:   58 sec:  585 sec: 2151.153 GB:   0 :       : 1;
+     station=Hh:   87 sec:  585 sec: 1071.705 GB:   :       : 1;
+endscan;
+scan No0116;
+*    start=2008y161d19h10m00s <= original start, modified for tape start.
+     start=2008y161d19h09m55s; mode=lba3cm-2p-2IF; source=1718-649;
+     station=Pa:  123 sec:  585 sec: 2094.543 GB:   0 :       : 1;
+     station=At:   67 sec:  585 sec: 2170.022 GB:   0 :       : 1;
+     station=Mp:   70 sec:  585 sec: 2170.022 GB:   0 :       : 1;
+     station=Ho:   68 sec:  585 sec: 2170.022 GB:   0 :       : 1;
+     station=Cd:   60 sec:  585 sec: 2170.022 GB:   0 :       : 1;
+     station=Hh:   90 sec:  585 sec: 1090.575 GB:   :       : 1;
+endscan;
+scan No0117;
+*    start=2008y161d19h20m00s <= original start, modified for tape start.
+     start=2008y161d19h19m55s; mode=lba3cm-2p-2IF; source=1759-396;
+     station=Pa:   78 sec:  585 sec: 2113.413 GB:   0 :       : 1;
+     station=At:   38 sec:  585 sec: 2188.892 GB:   0 :       : 1;
+     station=Mp:   41 sec:  585 sec: 2188.892 GB:   0 :       : 1;
+     station=Ho:   41 sec:  585 sec: 2188.892 GB:   0 :       : 1;
+     station=Cd:   64 sec:  585 sec: 2188.892 GB:   0 :       : 1;
+     station=Hh:   63 sec:  585 sec: 1109.445 GB:   :       : 1;
+endscan;
+scan No0118;
+*    start=2008y161d19h30m00s <= original start, modified for tape start.
+     start=2008y161d19h29m55s; mode=lba3cm-2p-2IF; source=1814-637;
+     station=Pa:   73 sec:  585 sec: 2132.283 GB:   0 :       : 1;
+     station=At:   35 sec:  585 sec: 2207.762 GB:   0 :       : 1;
+     station=Mp:   38 sec:  585 sec: 2207.762 GB:   0 :       : 1;
+     station=Ho:   44 sec:  585 sec: 2207.762 GB:   0 :       : 1;
+     station=Cd:   64 sec:  585 sec: 2207.762 GB:   0 :       : 1;
+     station=Hh:   60 sec:  585 sec: 1128.315 GB:   :       : 1;
+endscan;
+scan No0119;
+*    start=2008y161d19h40m00s <= original start, modified for tape start.
+     start=2008y161d19h39m55s; mode=lba3cm-2p-2IF; source=2027-308;
+     station=Pa:  131 sec:  585 sec: 2151.153 GB:   0 :       : 1;
+     station=At:   65 sec:  585 sec: 2226.632 GB:   0 :       : 1;
+     station=Mp:   71 sec:  585 sec: 2226.632 GB:   0 :       : 1;
+     station=Ho:   76 sec:  585 sec: 2226.632 GB:   0 :       : 1;
+     station=Cd:  100 sec:  585 sec: 2226.632 GB:   0 :       : 1;
+     station=Hh:   78 sec:  585 sec: 1147.184 GB:   :       : 1;
+endscan;
+scan No0120;
+*    start=2008y161d19h50m00s <= original start, modified for tape start.
+     start=2008y161d19h49m55s; mode=lba3cm-2p-2IF; source=1954-388;
+     station=Pa:   38 sec:  585 sec: 2170.022 GB:   0 :       : 1;
+     station=At:   14 sec:  585 sec: 2245.502 GB:   0 :       : 1;
+     station=Mp:   15 sec:  585 sec: 2245.502 GB:   0 :       : 1;
+     station=Ho:   29 sec:  585 sec: 2245.502 GB:   0 :       : 1;
+     station=Cd:   44 sec:  585 sec: 2245.502 GB:   0 :       : 1;
+     station=Hh:   29 sec:  585 sec: 1166.054 GB:   :       : 1;
+endscan;
+scan No0121;
+*    start=2008y161d20h00m00s <= original start, modified for tape start.
+     start=2008y161d19h59m55s; mode=lba3cm-2p-2IF; source=2027-308;
+     station=Pa:   36 sec:  585 sec: 2188.892 GB:   0 :       : 1;
+     station=At:   13 sec:  585 sec: 2264.372 GB:   0 :       : 1;
+     station=Mp:   14 sec:  585 sec: 2264.372 GB:   0 :       : 1;
+     station=Ho:   29 sec:  585 sec: 2264.372 GB:   0 :       : 1;
+     station=Cd:   42 sec:  585 sec: 2264.372 GB:   0 :       : 1;
+     station=Hh:   28 sec:  585 sec: 1184.924 GB:   :       : 1;
+endscan;
+scan No0122;
+*    start=2008y161d20h10m00s <= original start, modified for tape start.
+     start=2008y161d20h09m55s; mode=lba3cm-2p-2IF; source=1934-638;
+     station=Pa:  127 sec:  585 sec: 2207.762 GB:   0 :       : 1;
+     station=At:   64 sec:  585 sec: 2283.242 GB:   0 :       : 1;
+     station=Mp:   70 sec:  585 sec: 2283.242 GB:   0 :       : 1;
+     station=Ho:   65 sec:  585 sec: 2283.242 GB:   0 :       : 1;
+     station=Cd:  101 sec:  585 sec: 2283.242 GB:   0 :       : 1;
+     station=Hh:   78 sec:  585 sec: 1203.794 GB:   :       : 1;
+endscan;
+scan No0123;
+*    start=2008y161d20h20m00s <= original start, modified for tape start.
+     start=2008y161d20h19m55s; mode=lba3cm-2p-2IF; source=2027-308;
+*              :data_good:data_stop:goto_foot: pass:  wrap :driv:tape at
+     station=Pa:  123 sec:  585 sec: 2226.632 GB:   0 :       : 1;
+     station=At:   63 sec:  585 sec: 2302.112 GB:   0 :       : 1;
+     station=Mp:   68 sec:  585 sec: 2302.112 GB:   0 :       : 1;
+     station=Ho:   64 sec:  585 sec: 2302.112 GB:   0 :       : 1;
+     station=Cd:   98 sec:  585 sec: 2302.112 GB:   0 :       : 1;
+     station=Hh:   78 sec:  585 sec: 1222.663 GB:   :       : 1;
+endscan;
+scan No0124;
+*    start=2008y161d20h30m00s <= original start, modified for tape start.
+     start=2008y161d20h29m55s; mode=lba3cm-2p-2IF; source=1954-388;
+     station=Pa:   33 sec:  585 sec: 2245.502 GB:   0 :       : 1;
+     station=At:   11 sec:  585 sec: 2320.981 GB:   0 :       : 1;
+     station=Mp:   12 sec:  585 sec: 2320.981 GB:   0 :       : 1;
+     station=Ho:   31 sec:  585 sec: 2320.981 GB:   0 :       : 1;
+     station=Cd:   37 sec:  585 sec: 2320.981 GB:   0 :       : 1;
+     station=Hh:   29 sec:  585 sec: 1241.533 GB:   :       : 1;
+endscan;
+scan No0125;
+*    start=2008y161d20h40m00s <= original start, modified for tape start.
+     start=2008y161d20h39m55s; mode=lba3cm-2p-2IF; source=2106-413;
+     station=Pa:   65 sec:  585 sec: 2264.372 GB:   0 :       : 1;
+     station=At:   30 sec:  585 sec: 2339.851 GB:   0 :       : 1;
+     station=Mp:   33 sec:  585 sec: 2339.851 GB:   0 :       : 1;
+     station=Ho:   29 sec:  585 sec: 2339.851 GB:   0 :       : 1;
+     station=Cd:   31 sec:  585 sec: 2339.851 GB:   0 :       : 1;
+     station=Hh:   47 sec:  585 sec: 1260.403 GB:   :       : 1;
+endscan;
+scan No0126;
+*    start=2008y161d20h50m00s <= original start, modified for tape start.
+     start=2008y161d20h49m55s; mode=lba3cm-2p-2IF; source=1954-388;
+     station=Pa:   68 sec:  585 sec: 2283.242 GB:   0 :       : 1;
+     station=At:   31 sec:  585 sec: 2358.721 GB:   0 :       : 1;
+     station=Mp:   34 sec:  585 sec: 2358.721 GB:   0 :       : 1;
+     station=Ho:   29 sec:  585 sec: 2358.721 GB:   0 :       : 1;
+     station=Cd:   31 sec:  585 sec: 2358.721 GB:   0 :       : 1;
+     station=Hh:   48 sec:  585 sec: 1279.273 GB:   :       : 1;
+endscan;
+scan No0127;
+*    start=2008y161d21h00m00s <= original start, modified for tape start.
+     start=2008y161d20h59m55s; mode=lba3cm-2p-2IF; source=2106-413;
+     station=Pa:   65 sec:  585 sec: 2302.112 GB:   0 :       : 1;
+     station=At:   31 sec:  585 sec: 2377.591 GB:   0 :       : 1;
+     station=Mp:   33 sec:  585 sec: 2377.591 GB:   0 :       : 1;
+     station=Ho:   28 sec:  585 sec: 2377.591 GB:   0 :       : 1;
+     station=Cd:   31 sec:  585 sec: 2377.591 GB:   0 :       : 1;
+     station=Hh:   47 sec:  585 sec: 1298.142 GB:   :       : 1;
+endscan;
+scan No0128;
+*    start=2008y161d21h10m00s <= original start, modified for tape start.
+     start=2008y161d21h09m55s; mode=lba3cm-2p-2IF; source=2152-699;
+     station=Pa:  112 sec:  585 sec: 2320.981 GB:   0 :       : 1;
+     station=At:   56 sec:  585 sec: 2396.461 GB:   0 :       : 1;
+     station=Mp:   61 sec:  585 sec: 2396.461 GB:   0 :       : 1;
+     station=Ho:   43 sec:  585 sec: 2396.461 GB:   0 :       : 1;
+     station=Cd:   86 sec:  585 sec: 2396.461 GB:   0 :       : 1;
+     station=Hh:   69 sec:  585 sec: 1317.012 GB:   :       : 1;
+endscan;
+scan No0129;
+*    start=2008y161d21h20m00s <= original start, modified for tape start.
+     start=2008y161d21h19m55s; mode=lba3cm-2p-2IF; source=2106-413;
+     station=Pa:  110 sec:  585 sec: 2339.851 GB:   0 :       : 1;
+     station=At:   55 sec:  585 sec: 2415.331 GB:   0 :       : 1;
+     station=Mp:   60 sec:  585 sec: 2415.331 GB:   0 :       : 1;
+     station=Ho:   45 sec:  585 sec: 2415.331 GB:   0 :       : 1;
+     station=Cd:   85 sec:  585 sec: 2415.331 GB:   0 :       : 1;
+     station=Hh:   69 sec:  585 sec: 1335.882 GB:   :       : 1;
+endscan;
+scan No0130;
+*    start=2008y161d21h30m00s <= original start, modified for tape start.
+     start=2008y161d21h29m55s; mode=lba3cm-2p-2IF; source=1934-638;
+     station=Pa:   76 sec:  585 sec: 2358.721 GB:   0 :       : 1;
+     station=At:   36 sec:  585 sec: 2434.201 GB:   0 :       : 1;
+     station=Mp:   39 sec:  585 sec: 2434.201 GB:   0 :       : 1;
+     station=Ho:   53 sec:  585 sec: 2434.201 GB:   0 :       : 1;
+     station=Cd:   58 sec:  585 sec: 2434.201 GB:   0 :       : 1;
+     station=Hh:   57 sec:  585 sec: 1354.752 GB:   :       : 1;
+endscan;
+scan No0131;
+*    start=2008y161d21h40m00s <= original start, modified for tape start.
+     start=2008y161d21h39m55s; mode=lba3cm-2p-2IF; source=2152-699;
+*              :data_good:data_stop:goto_foot: pass:  wrap :driv:tape at
+     station=Pa:   54 sec:  585 sec: 2377.591 GB:   0 :       : 1;
+     station=At:   24 sec:  585 sec: 2453.071 GB:   0 :       : 1;
+     station=Mp:   26 sec:  585 sec: 2453.071 GB:   0 :       : 1;
+     station=Ho:   29 sec:  585 sec: 2453.071 GB:   0 :       : 1;
+     station=Cd:   36 sec:  585 sec: 2453.071 GB:   0 :       : 1;
+     station=Hh:   80 sec:  585 sec: 1373.621 GB:   :       : 1;
+endscan;
+scan No0132;
+*    start=2008y161d21h50m00s <= original start, modified for tape start.
+     start=2008y161d21h49m55s; mode=lba3cm-2p-2IF; source=2027-308;
+     station=Pa:  128 sec:  585 sec: 2396.461 GB:   0 :       : 1;
+     station=At:   67 sec:  585 sec: 2471.940 GB:   0 :       : 1;
+     station=Mp:   72 sec:  585 sec: 2471.940 GB:   0 :       : 1;
+     station=Ho:   68 sec:  585 sec: 2471.940 GB:   0 :       : 1;
+     station=Cd:  104 sec:  585 sec: 2471.940 GB:   0 :       : 1;
+     station=Hh:   90 sec:  585 sec: 1392.491 GB:   :       : 1;
+endscan;
+scan No0133;
+*    start=2008y161d22h00m00s <= original start, modified for tape start.
+     start=2008y161d21h59m55s; mode=lba3cm-2p-2IF; source=2204-540;
+     station=Pa:   95 sec:  585 sec: 2415.331 GB:   0 :       : 1;
+     station=At:   46 sec:  585 sec: 2490.810 GB:   0 :       : 1;
+     station=Mp:   50 sec:  585 sec: 2490.810 GB:   0 :       : 1;
+     station=Ho:   54 sec:  585 sec: 2490.810 GB:   0 :       : 1;
+     station=Cd:   72 sec:  585 sec: 2490.810 GB:   0 :       : 1;
+     station=Hh:   60 sec:  585 sec: 1411.361 GB:   :       : 1;
+endscan;
+scan No0134;
+*    start=2008y161d22h10m00s <= original start, modified for tape start.
+     start=2008y161d22h09m55s; mode=lba3cm-2p-2IF; source=1934-638;
+     station=Pa:   94 sec:  585 sec: 2434.201 GB:   0 :       : 1;
+     station=At:   48 sec:  585 sec: 2509.680 GB:   0 :       : 1;
+     station=Mp:   51 sec:  585 sec: 2509.680 GB:   0 :       : 1;
+     station=Ho:   47 sec:  585 sec: 2509.680 GB:   0 :       : 1;
+     station=Cd:   42 sec:  585 sec: 2509.680 GB:   0 :       : 1;
+     station=Hh:   87 sec:  585 sec: 1430.231 GB:   :       : 1;
+endscan;
+scan No0135;
+*    start=2008y161d22h20m00s <= original start, modified for tape start.
+     start=2008y161d22h19m55s; mode=lba3cm-2p-2IF; source=2204-540;
+     station=Pa:   90 sec:  585 sec: 2453.071 GB:   0 :       : 1;
+     station=At:   46 sec:  585 sec: 2528.550 GB:   0 :       : 1;
+     station=Mp:   49 sec:  585 sec: 2528.550 GB:   0 :       : 1;
+     station=Ho:   46 sec:  585 sec: 2528.550 GB:   0 :       : 1;
+     station=Cd:   42 sec:  585 sec: 2528.550 GB:   0 :       : 1;
+     station=Hh:   85 sec:  585 sec: 1449.100 GB:   :       : 1;
+endscan;
+scan No0136;
+*    start=2008y161d22h30m00s <= original start, modified for tape start.
+     start=2008y161d22h29m55s; mode=lba3cm-2p-2IF; source=2152-699;
+     station=Pa:   51 sec:  585 sec: 2471.940 GB:   0 :       : 1;
+     station=At:   22 sec:  585 sec: 2547.420 GB:   0 :       : 1;
+     station=Mp:   24 sec:  585 sec: 2547.420 GB:   0 :       : 1;
+     station=Ho:   29 sec:  585 sec: 2547.420 GB:   0 :       : 1;
+     station=Cd:   42 sec:  585 sec: 2547.420 GB:   0 :       : 1;
+     station=Hh:   44 sec:  585 sec: 1467.970 GB:   :       : 1;
+endscan;
+scan No0137;
+*    start=2008y161d22h40m00s <= original start, modified for tape start.
+     start=2008y161d22h39m55s; mode=lba3cm-2p-2IF; source=2204-540;
+     station=Pa:   51 sec:  585 sec: 2490.810 GB:   0 :       : 1;
+     station=At:   22 sec:  585 sec: 2566.290 GB:   0 :       : 1;
+     station=Mp:   24 sec:  585 sec: 2566.290 GB:   0 :       : 1;
+     station=Ho:   28 sec:  585 sec: 2566.290 GB:   0 :       : 1;
+     station=Cd:   42 sec:  585 sec: 2566.290 GB:   0 :       : 1;
+     station=Hh:   44 sec:  585 sec: 1486.840 GB:   :       : 1;
+endscan;
+scan No0138;
+*    start=2008y161d22h50m00s <= original start, modified for tape start.
+     start=2008y161d22h49m55s; mode=lba3cm-2p-2IF; source=2106-413;
+     station=Pa:   54 sec:  585 sec: 2509.680 GB:   0 :       : 1;
+     station=At:   23 sec:  585 sec: 2585.160 GB:   0 :       : 1;
+     station=Mp:   25 sec:  585 sec: 2585.160 GB:   0 :       : 1;
+     station=Ho:   35 sec:  585 sec: 2585.160 GB:   0 :       : 1;
+     station=Cd:   41 sec:  585 sec: 2585.160 GB:   0 :       : 1;
+     station=Hh:   41 sec:  585 sec: 1505.710 GB:   :       : 1;
+endscan;
+scan No0139;
+*    start=2008y161d23h00m00s <= original start, modified for tape start.
+     start=2008y161d22h59m55s; mode=lba3cm-2p-2IF; source=2152-699;
+*              :data_good:data_stop:goto_foot: pass:  wrap :driv:tape at
+     station=Pa:   84 sec:  585 sec: 2528.550 GB:   0 :       : 1;
+     station=At:   42 sec:  585 sec: 2604.030 GB:   0 :       : 1;
+     station=Mp:   45 sec:  585 sec: 2604.030 GB:   0 :       : 1;
+     station=Ho:   54 sec:  585 sec: 2604.030 GB:   0 :       : 1;
+     station=Cd:   71 sec:  585 sec: 2604.030 GB:   0 :       : 1;
+     station=Hh:   69 sec:  585 sec: 1524.579 GB:   :       : 1;
+endscan;
+scan No0140;
+*    start=2008y161d23h10m00s <= original start, modified for tape start.
+     start=2008y161d23h09m55s; mode=lba3cm-2p-2IF; source=2204-540;
+     station=Pa:   49 sec:  585 sec: 2547.420 GB:   0 :       : 1;
+     station=At:   21 sec:  585 sec: 2622.899 GB:   0 :       : 1;
+     station=Mp:   23 sec:  585 sec: 2622.899 GB:   0 :       : 1;
+     station=Ho:   31 sec:  585 sec: 2622.899 GB:   0 :       : 1;
+     station=Cd:   43 sec:  585 sec: 2622.899 GB:   0 :       : 1;
+     station=Hh:   44 sec:  585 sec: 1543.449 GB:   :       : 1;
+endscan;
+scan No0141;
+*    start=2008y161d23h20m00s <= original start, modified for tape start.
+     start=2008y161d23h19m55s; mode=lba3cm-2p-2IF; source=2355-534;
+     station=Pa:   77 sec:  585 sec: 2566.290 GB:   0 :       : 1;
+     station=At:   37 sec:  585 sec: 2641.769 GB:   0 :       : 1;
+     station=Mp:   40 sec:  585 sec: 2641.769 GB:   0 :       : 1;
+     station=Ho:   31 sec:  585 sec: 2641.769 GB:   0 :       : 1;
+     station=Cd:   33 sec:  585 sec: 2641.769 GB:   0 :       : 1;
+     station=Hh:   67 sec:  585 sec: 1562.319 GB:   :       : 1;
+endscan;
+scan No0142;
+*    start=2008y161d23h30m00s <= original start, modified for tape start.
+     start=2008y161d23h29m55s; mode=lba3cm-2p-2IF; source=0454-463;
+     station=Pa:  235 sec:  585 sec: 2585.160 GB:   0 :       : 1;
+     station=At:  125 sec:  585 sec: 2660.639 GB:   0 :       : 1;
+     station=Mp:  135 sec:  585 sec: 2660.639 GB:   0 :       : 1;
+     station=Ho:   79 sec:  585 sec: 2660.639 GB:   0 :       : 1;
+     station=Cd:  142 sec:  585 sec: 2660.639 GB:   0 :       : 1;
+endscan;
+scan No0143;
+*    start=2008y161d23h40m00s <= original start, modified for tape start.
+     start=2008y161d23h39m55s; mode=lba3cm-2p-2IF; source=0438-436;
+     station=Pa:   14 sec:  585 sec: 2604.030 GB:   0 :       : 1;
+     station=At:    0 sec:  585 sec: 2679.509 GB:   0 :       : 1;
+     station=Mp:    1 sec:  585 sec: 2679.509 GB:   0 :       : 1;
+     station=Ho:   11 sec:  585 sec: 2679.509 GB:   0 :       : 1;
+     station=Cd:   11 sec:  585 sec: 2679.509 GB:   0 :       : 1;
+endscan;
+scan No0144;
+*    start=2008y161d23h50m00s <= original start, modified for tape start.
+     start=2008y161d23h49m55s; mode=lba3cm-2p-2IF; source=0518-458;
+     station=Pa:   33 sec:  585 sec: 2622.899 GB:   0 :       : 1;
+     station=At:   11 sec:  585 sec: 2698.379 GB:   0 :       : 1;
+     station=Mp:   12 sec:  585 sec: 2698.379 GB:   0 :       : 1;
+     station=Ho:   15 sec:  585 sec: 2698.379 GB:   0 :       : 1;
+     station=Cd:   19 sec:  585 sec: 2698.379 GB:   0 :       : 1;
+endscan;

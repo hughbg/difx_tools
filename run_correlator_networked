@@ -1,0 +1,20 @@
+echo "Probe stream times:"
+~/networking/receiver  -k -h -b 8032  22001   /tmp/x | python set_vex_time.py -time_only
+~/networking/receiver  -k -h -b 8032  22002   /tmp/x | python set_vex_time.py -time_only
+
+echo
+~/networking/receiver  -k -h -b 8032  22001   /tmp/x | python set_vex_time.py
+
+echo "Generating files"
+./run_correlator --no_start from-stream
+
+echo
+echo "Modifying machines list"
+cat <<EOF >> from-stream_1.machines
+node2
+node2
+EOF
+
+echo
+echo "Running correlator"
+./mpi_command

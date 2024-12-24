@@ -1,0 +1,35 @@
+vex = from-stream.vex
+
+
+SETUP default
+{
+  tInt = 0.05
+  FFTSpecRes = 0.25     # The sampling rate is weird so this is weird
+  specRes = 0.25  
+}
+
+ANTENNA At
+{
+  clockOffset = -53.597
+  networkPort = 22002
+  UDP_MTU = 8040
+  clockRate = 7.523e-8
+  clockEpoch = 51545.061458333
+}
+
+ANTENNA Pa
+{
+  networkPort = 22001
+  UDP_MTU = 8040
+  clockOffset = -0.936
+  clockRate = 3e-9
+  clockEpoch = 51545.061458333
+
+}
+
+
+EOP _EOP0_ { xPole=0.139890 yPole=0.533780 tai_utc=33 ut1_utc=-0.431904 }
+EOP _EOP1_ { xPole=0.143230 yPole=0.532770 tai_utc=33 ut1_utc=-0.432531 }
+EOP _EOP2_ { xPole=0.146590 yPole=0.531680 tai_utc=33 ut1_utc=-0.433317 }
+EOP _EOP3_ { xPole=0.150060 yPole=0.530710 tai_utc=33 ut1_utc=-0.434260 }
+EOP _EOP4_ { xPole=0.153750 yPole=0.529190 tai_utc=33 ut1_utc=-0.435268 }

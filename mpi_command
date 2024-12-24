@@ -1,3 +1,8 @@
+#!/bin/bash
 
-rm network_1.difx/DIFX_51544_000000.s0000.b0000
-mpirun -np 4 --hostfile network_1.machines --mca mpi_yield_when_idle 1 --mca rmaps seq  mpifxcorr network_1.input
+source ../DiFX-2.8.1/setup.bash
+if [ -r from-stream_1.difx/DIFX_51544_000000.s0000.b0000 ]
+then
+	rm from-stream_1.difx/DIFX_51544_000000.s0000.b0000
+fi
+mpirun -np 4 --hostfile /home/ubuntu/v252f/from-stream_1.machines --mca mpi_yield_when_idle 1 --mca rmaps seq  mpifxcorr /home/ubuntu/v252f/from-stream_1.input

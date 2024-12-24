@@ -1,9 +1,16 @@
 #!/bin/bash
 
-if [ -z $1 ]
+usage() {
+        echo "Usage: run_correlator [ --no_start ]  V2D_FILE"
+        echo "V2D_FILE without .v2d extension"
+        exit 1
+}
+
+if [ $# -eq 0 ]
 then
-	v2d=example
-else
+	usage
+elif [ $# -eq 1 ]
+then
 	if [ -r ${1}.v2d ]
 	then
 		v2d=$1
@@ -11,8 +18,27 @@ else
 		echo "$1.v2d not found"
 		exit 1
 	fi
+	no_start=0
+elif [ $# -eq 2 ]
+then
+	if [ $1 != "--no_start" ]
+	then
+		usage
+	else
+		no_start=1
+	fi
+        if [ -r ${2}.v2d ]
+        then
+                v2d=$2
+        else
+                echo "$2.v2d not found"
+                exit 1
+        fi
+else
+	usage
 fi
 
+comment_out() {
 # Check paths in *.filelist
 for f in *.filelist
 do
@@ -27,6 +53,7 @@ do
 	fi
   done
 done
+}
 
 # Reset config files
 rm -rf ${v2d}_1.calc  ${v2d}_1.flag  ${v2d}_1.im  ${v2d}_1.input  ${v2d}_1.machines  ${v2d}_1.threads  ${v2d}.joblist ${v2d}_1.difx
@@ -57,10 +84,15 @@ then
 	exit 1
 fi
 
-# Had to create cluster.def
+if [ $no_start -eq 1 ]
+then
+	genmachines -v -m cluster.def ${v2d}_1.input
+	exit
+fi
 
-# This env variable causes problems because it makes startdifx attempt to run
-# runmpixcorr.trunk
+# Had also to create cluster.def
+
+# This env variable causes problems because it makes startdifx attempt to run runmpixcorr.trunk
 unset DIFX_VERSION
 
 run_startdifx() {

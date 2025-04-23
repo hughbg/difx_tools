@@ -22,6 +22,14 @@ else:
     exit(1)
 
 d = shift_time(sys.argv[1], shift)
+print("Date:", d.strftime("%Y-%m-%d %H:%M:%S"))
 
-print(d.strftime("%Y-%m-%d %H:%M:%S"))
+ref_epoch = datetime.datetime(d.year, (d.month//6)*6, 1)
+six_month_intervals = (ref_epoch.year-2000)*2+ref_epoch.month//6
+print("ref_epoch (6 month intervals):", six_month_intervals, "=", ref_epoch.strftime("%Y-%m-%d %H:%M:%S"))
+
+diff = d-ref_epoch
+seconds_from_ref_epoch = diff.days*24*60*60+diff.seconds
+print("seconds_from_ref_epoch:", seconds_from_ref_epoch)
+
 

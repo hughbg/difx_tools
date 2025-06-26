@@ -6,8 +6,11 @@ def parse_date_time(dt):
     return datetime.datetime.strptime(dt, '%Yy%jd%Hh%Mm%Ss')
 
 
-def shift_time(time_str, seconds):
-    dt = parse_date_time(time_str)
+def shift_time(time_rep, seconds):
+    if isinstance(time_rep, str):
+        dt = parse_date_time(time_rep)
+    else:
+        dt = time_rep
     tdelta = datetime.timedelta(seconds=seconds)
     return dt+tdelta
 
@@ -22,14 +25,20 @@ else:
     exit(1)
 
 d = shift_time(sys.argv[1], shift)
-print("Date:", d.strftime("%Y-%m-%d %H:%M:%S"))
+input_date_as_str = d.strftime("%Y-%m-%d %H:%M:%S")
+print("Input date including seconds (if any):", input_date_as_str)
 
-ref_epoch = datetime.datetime(d.year, (d.month//6)*6, 1)
+ref_epoch = datetime.datetime(d.year, 1 if d.month<6 else 6, 1)
 six_month_intervals = (ref_epoch.year-2000)*2+ref_epoch.month//6
 print("ref_epoch (6 month intervals):", six_month_intervals, "=", ref_epoch.strftime("%Y-%m-%d %H:%M:%S"))
 
 diff = d-ref_epoch
 seconds_from_ref_epoch = diff.days*24*60*60+diff.seconds
 print("seconds_from_ref_epoch:", seconds_from_ref_epoch)
+
+vdif_date = shift_time(ref_epoch, seconds_from_ref_epoch).strftime("%Y-%m-%d %H:%M:%S")
+print("Check we get the date back from ref_epoch and seconds_from_ref_epoch:\n\t",
+      vdif_date, "==", input_date_as_str+"?", vdif_date==input_date_as_str)
+
 
 
